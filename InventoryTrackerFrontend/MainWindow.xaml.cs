@@ -21,44 +21,62 @@ namespace InventoryTrackerFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
+        public SqlConnection connection;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-            string connectionString = @"Data Source=WOOTBOOK-WINDOW\SQLEXPRESS;Initial Catalog=InventoryTracker;Integrated Security=True";
+        private void connect()
+        {
+            string connectionString = @"Data Source=WOOTBOOK-WINDOW\SQLEXPRESS;Initial Catalog=InventoryTracker;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            this.connection = new SqlConnection(connectionString);
+            SqlCommand command = new SqlCommand("SELECT * FROM AppUser", connection);
+
+            this.connection.Open();
+            MessageBox.Show("Connection succeeded");
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            this.connect();
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                string sql = "SELECT * FROM AppUser";
+                SqlCommand command = new SqlCommand(sql, connection);
+                SqlDataReader dr = command.ExecuteReader();
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+
+                //check if there are records
+                if (dr.HasRows)
                 {
-                    SqlCommand command = new SqlCommand("SELECT * FROM AppUser", connection);
-
-                    connection.Open();
-
-                    //execute the SQLCommand
-                    SqlDataReader dr = command.ExecuteReader();
-
-                    //check if there are records
-                    if (dr.HasRows)
+                    while (dr.Read())
                     {
-                        while (dr.Read())
-                        {
-                            //display retrieved record (first column only/string value)
-                            Console.WriteLine(dr.GetString(0));
-                        }
+                        //display retrieved record (first column only/string value)
+                        Console.WriteLine(dr.GetString(0));
                     }
-                    else
-                    {
-                        Console.WriteLine("No data found.");
-                    }
-                    dr.Close();
                 }
+                else
+                {
+                    Console.WriteLine("No data found.");
+                }
+                dr.Close();
+                command.Dispose();
             }
             catch (Exception ex)
             {
                 //display error message
                 Console.WriteLine("Exception: " + ex.Message);
             }
+
+            this.connection.Close();
+
+            Console.WriteLine(this.textBoxName);
+            Console.WriteLine(this.textBoxLastName);
         }
     }
 }

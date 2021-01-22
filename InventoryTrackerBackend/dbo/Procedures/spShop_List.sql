@@ -1,0 +1,4 @@
+﻿CREATE PROCEDURE [dbo].[spShop_List]
+AS
+	SET NOCOUNT ON	
+	SELECT * FROM Shop

@@ -5,6 +5,6 @@
     [DatePriceChecked]   DATETIME NULL,
     [IsOriginalPurchase] BIT      NULL,
     FOREIGN KEY ([EquipmentId]) REFERENCES [dbo].[Equipment] ([EquipmentId]),
-    FOREIGN KEY ([ShopId]) REFERENCES [dbo].[Shop] ([ShopId])
+    FOREIGN KEY ([ShopId]) REFERENCES [dbo].[Shop] ([ShopId]), 
+    CONSTRAINT [CK_EquipmentPricing_DatePriceChecked] CHECK ([DatePriceChecked] <= GetDate())
 );
-
