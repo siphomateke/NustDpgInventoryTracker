@@ -8,5 +8,5 @@ AS
 	INSERT INTO EquipmentPricing
 		(EquipmentId, ShopId, EquipmentPrice, DatePriceChecked, IsOriginalPurchase)
 	VALUES
-		(@EquipmentId)
+		(@EquipmentId, @ShopId, @EquipmentId, @DatePriceChecked, @IsOriginalPurchase)
 RETURN 0

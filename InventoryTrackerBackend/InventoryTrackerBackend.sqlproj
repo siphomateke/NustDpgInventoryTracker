@@ -61,7 +61,6 @@
     <Folder Include="dbo\Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Procedures\GetCategories.sql" />
     <Build Include="dbo\Tables\AppUser.sql" />
     <Build Include="dbo\Tables\AppUserRole.sql" />
     <Build Include="dbo\Tables\Category.sql" />
@@ -80,7 +79,20 @@
     <Build Include="dbo\Tables\RolePermission.sql" />
     <Build Include="dbo\Tables\Shop.sql" />
     <Build Include="dbo\Tables\UserViewableCategory.sql" />
-    <Build Include="dbo\Procedures\spEquipmentCategory_List.sql" />
+    <Build Include="dbo\Procedures\spUser_HasPermission.sql" />
+    <Build Include="dbo\Procedures\spEquipmentCondition_Add.sql" />
+    <Build Include="dbo\Procedures\spEquipmentCondition_List.sql" />
+    <Build Include="dbo\Procedures\spEquipmentPricing_Set.sql" />
+    <Build Include="dbo\Procedures\spShop_Add.sql" />
+    <Build Include="dbo\Procedures\spShop_List.sql" />
+    <Build Include="dbo\Procedures\spUser_CanEditEquipment.sql" />
+    <Build Include="dbo\Procedures\spUser_CanViewEquipment.sql" />
+    <Build Include="dbo\Procedures\spEquipmentCategory_Add.sql" />
+    <Build Include="dbo\Procedures\spCategory_Add.sql" />
+    <Build Include="dbo\Procedures\spCategory_List.sql" />
+    <Build Include="dbo\Procedures\spCountry_Add.sql" />
+    <Build Include="dbo\Procedures\spCountry_List.sql" />
+    <Build Include="dbo\Procedures\spEquipment_Add.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="InventoryTrackerBackend.publish.xml" />
