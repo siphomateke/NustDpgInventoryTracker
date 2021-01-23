@@ -11,23 +11,14 @@
     @DateOfPurchase        DATE           = NULL,
     @ReceiptImage          VARCHAR (4096) = NULL,
     @WarrantyExpiryDate    DATE           = NULL,
-    @WarrantyImage         VARCHAR (4096) = NULL
+    @WarrantyImage         VARCHAR (4096) = NULL,
+    @EquipmentChangeId INT OUTPUT
 AS
-    BEGIN TRANSACTION;
-        DECLARE @CanEdit BIT
-        EXEC @CanEdit = spUser_CanEditEquipment @UserId
-        DECLARE @CanView BIT
-        EXEC @CanView = spUser_CanViewEquipment @UserId, @EquipmentId
-
-        PRINT(@CanEdit)
-
-        IF @CanEdit = 0 OR @CanView = 0
-            IF @CanEdit = 0
-                RAISERROR('User does not have permission to edit equipment.', 16, 1)
-            IF @CanView = 0
-                RAISERROR('User does not have permission to edit this equipment.', 16, 1)
-        ELSE
-            DECLARE @ChangeDate DATE = GETDATE()
+    BEGIN TRANSACTION
+        DECLARE @CanEdit BIT;
+        EXEC spUser_EnsureCanEditEquipment @UserId, @EquipmentId, @CanEdit OUTPUT;
+        IF @CanEdit = 1
+            DECLARE @ChangeDate DATE = GETDATE();
 
             INSERT INTO EquipmentChange
                 (
@@ -66,7 +57,6 @@ AS
                     @ReceiptImage,
                     @WarrantyExpiryDate,
                     @WarrantyImage
-                )
-
-            RETURN IDENT_CURRENT('EquipmentChange');
-    COMMIT;  
+                );
+            SET @EquipmentChangeId = IDENT_CURRENT('EquipmentChange');
+    COMMIT;

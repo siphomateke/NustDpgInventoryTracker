@@ -4,7 +4,7 @@
 AS
 	-- Make sure user can view this equipment
 	DECLARE @CanView BIT
-	EXEC @CanView = spUser_CanViewEquipment @UserId, @EquipmentId
+	EXEC spUser_CanViewEquipment @UserId, @EquipmentId, @CanView OUTPUT
 	IF @CanView = 1
 		SELECT * FROM Equipment
 	ELSE

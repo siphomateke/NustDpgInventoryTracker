@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spUser_CanViewEquipment]
 	@UserId int,
-	@EquipmentId int
+	@EquipmentId int,
+	@CanViewEquipment BIT OUTPUT
 AS
 	IF EXISTS(
 		SELECT 1 FROM  UserViewableCategory
@@ -8,6 +9,6 @@ AS
 		ON (UserViewableCategory.CategoryId = EquipmentCategory.CategoryId)
 		WHERE UserId = @UserId AND EquipmentId = @EquipmentId
 	)
-		RETURN 1
+		SET @CanViewEquipment = 1
 	ELSE
-		RETURN 0
+		SET @CanViewEquipment = 0

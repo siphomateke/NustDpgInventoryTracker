@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spUser_CanEditEquipment]
-	@UserId int
+	@UserId INT,
+	@CanEdit BIT OUTPUT
 AS
-	RETURN EXEC spUser_HasPermission @UserId, 'CAN_MAKE_CHANGES'
+	EXEC spUser_HasPermission @UserId, 'CAN_MAKE_CHANGES', @CanEdit OUTPUT;

@@ -13,7 +13,8 @@ AS
 		IF @EquipmentId = NULL
             RAISERROR('This equipment change no longer exists', 16, 1);
 
-		EXEC spUser_EnsureCanEditEquipment @UserId, @EquipmentId
-
-		DELETE FROM EquipmentChange WHERE EquipmentChangeId = @EquipmentChangeId
+		DECLARE @CanEdit BIT;
+		EXEC spUser_EnsureCanEditEquipment @UserId, @EquipmentId, @CanEdit OUTPUT;
+		IF @CanEdit = 1
+			DELETE FROM EquipmentChange WHERE EquipmentChangeId = @EquipmentChangeId
 	COMMIT;

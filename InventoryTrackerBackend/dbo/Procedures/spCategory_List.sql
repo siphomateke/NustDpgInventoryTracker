@@ -1,4 +1,0 @@
-﻿CREATE PROCEDURE spCategory_List
-AS
-	SET NOCOUNT ON
-	SELECT * FROM Category

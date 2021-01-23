@@ -3,15 +3,15 @@ ON EquipmentChange
 AFTER INSERT
 AS
 BEGIN
-	SET NOCOUNT ON
+	SET NOCOUNT ON;
 
-	DECLARE @NotificationTitle VARCHAR = 'Equipment change'
-	DECLARE @NotificationMessage VARCHAR = ' made changes to some equipment that require approval.'
+	DECLARE @NotificationTitle VARCHAR (100) = 'Equipment change';
+	DECLARE @NotificationMessage VARCHAR (250) = ' made changes to some equipment that require approval.';
 
 	-- Get username of user who changed equipment
-	DECLARE @Username VARCHAR(100)
+	DECLARE @Username VARCHAR(100);
 	SELECT TOP(1) @Username = Username FROM AppUser
-	WHERE AppUser.UserId = (SELECT ChangedByUserId FROM inserted)
+	WHERE AppUser.UserId = (SELECT ChangedByUserId FROM inserted);
 
 	-- TODO: Make sure user still exists
 
@@ -24,15 +24,9 @@ BEGIN
 		[Description]
 	)
 	SELECT 
-		AppUser.UserId,
+		v_ApproverUsers.UserId,
 		(SELECT EquipmentChangeId FROM inserted),
 		@NotificationTitle,
 		CONCAT(@Username, @NotificationMessage)
-	FROM AppUser
-	INNER JOIN AppUserRole ON (AppUser.UserId = AppUserRole.RoleId)
-	INNER JOIN RolePermission ON (AppUserRole.RoleId = RolePermission.RoleId)
-	INNER JOIN Permission ON (RolePermission.PermissionId = Permission.PermissionId)
-	WHERE Permission.Name = 'CAN_APPROVE_CHANGES'
-
-	-- EXEC spUser_HasPermission SELECT inserted.ChangedByUserId, 'CAN_APPROVE_CHANGES'
+	FROM v_ApproverUsers;
 END

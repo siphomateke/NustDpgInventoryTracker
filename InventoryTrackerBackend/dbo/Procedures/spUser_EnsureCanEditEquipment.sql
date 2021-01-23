@@ -1,14 +1,19 @@
 ﻿CREATE PROCEDURE [dbo].[spUser_EnsureCanEditEquipment]
 	@UserId INT,
-	@EquipmentId INT
+	@EquipmentId INT,
+    @CanEdit BIT OUTPUT,
+    @CanEditAny BIT OUTPUT,
+    @CanView BIT OUTPUT
 AS
-	DECLARE @CanEdit BIT
-    EXEC @CanEdit = spUser_CanEditEquipment @UserId
-    IF @CanEdit = 0
-        RAISERROR('User does not have permission to edit equipment.', 20, 1) WITH LOG
+    EXEC spUser_CanEditEquipment @UserId, @CanEditAny OUTPUT;
+    EXEC spUser_CanViewEquipment @UserId, @EquipmentId, @CanView OUTPUT;
 
-    DECLARE @CanView BIT
-    EXEC @CanView = spUser_CanViewEquipment @UserId, @EquipmentId
-    IF @CanView = 0
-        RAISERROR('User does not have permission to edit this equipment.', 20, 1) WITH LOG
-RETURN 0
+    IF @CanEditAny = 0 OR @CanView = 0
+        SET @CanEdit = 1;
+
+        IF @CanEditAny = 0
+            RAISERROR('User does not have permission to edit equipment.', 16, 1);
+        IF @CanView = 0
+            RAISERROR('User does not have permission to edit this equipment.', 16, 1);
+    ELSE
+        SET @CanEdit = 0
