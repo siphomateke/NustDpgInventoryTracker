@@ -15,11 +15,11 @@
     @EquipmentChangeId INT = NULL OUTPUT
 AS
     BEGIN TRANSACTION
+        DECLARE @ChangeDate DATE = GETDATE();
+
         DECLARE @CanEdit BIT;
         EXEC spUser_EnsureCanEditEquipment @UserId, @EquipmentId, @CanEdit OUTPUT;
         IF @CanEdit = 1
-            DECLARE @ChangeDate DATE = GETDATE();
-
             INSERT INTO EquipmentChange
                 (
                     EquipmentId,
