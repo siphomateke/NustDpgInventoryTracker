@@ -2,8 +2,8 @@
 	@UserId INT,
 	@EquipmentId INT,
     @CanEdit BIT OUTPUT,
-    @CanEditAny BIT OUTPUT,
-    @CanView BIT OUTPUT
+    @CanEditAny BIT = NULL OUTPUT,
+    @CanView BIT = NULL OUTPUT
 AS
     EXEC spUser_CanEditEquipment @UserId, @CanEditAny OUTPUT;
     EXEC spUser_CanViewEquipment @UserId, @EquipmentId, @CanView OUTPUT;

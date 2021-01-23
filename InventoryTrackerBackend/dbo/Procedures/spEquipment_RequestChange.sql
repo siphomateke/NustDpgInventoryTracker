@@ -12,7 +12,7 @@
     @ReceiptImage          VARCHAR (4096) = NULL,
     @WarrantyExpiryDate    DATE           = NULL,
     @WarrantyImage         VARCHAR (4096) = NULL,
-    @EquipmentChangeId INT OUTPUT
+    @EquipmentChangeId INT = NULL OUTPUT
 AS
     BEGIN TRANSACTION
         DECLARE @CanEdit BIT;
