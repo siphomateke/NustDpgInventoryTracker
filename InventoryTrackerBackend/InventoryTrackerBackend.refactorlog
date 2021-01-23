@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="c33cef9b-cf68-4a2a-8321-4593cfbdf5f6" ChangeDateTime="01/22/2021 20:35:57">
+    <Property Name="ElementName" Value="[dbo].[spUser_CheckEditEquipmentPermissions]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[spUser_EnsureCanEditEquipment]" />
+  </Operation>
+</Operations>
