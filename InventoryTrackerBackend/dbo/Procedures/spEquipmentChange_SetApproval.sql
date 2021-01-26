@@ -5,7 +5,7 @@
 AS
 	-- Make sure specified user can approve changes
 	DECLARE @CanApprove BIT;
-	EXEC spUser_CanApproveChanges @UserId, @CanApprove;
+	EXEC spUser_CanApproveChanges @UserId, @CanApprove OUTPUT;
 	IF @CanApprove = 1 BEGIN
 		BEGIN TRANSACTION;
 			IF @Approved = 1
