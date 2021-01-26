@@ -69,16 +69,29 @@
     <Build Include="dbo\Procedures\spCategory_Add.sql" />
     <Build Include="dbo\Procedures\spCountry_Add.sql" />
     <Build Include="dbo\Procedures\spEquipment_Add.sql" />
+    <Build Include="dbo\Procedures\spEquipment_AvailableShops.sql" />
     <Build Include="dbo\Procedures\spEquipment_Details.sql" />
+    <Build Include="dbo\Procedures\spEquipment_List.sql" />
+    <Build Include="dbo\Procedures\spEquipment_ListAllToBuy.sql" />
     <Build Include="dbo\Procedures\spEquipment_RequestChange.sql" />
     <Build Include="dbo\Procedures\spEquipment_UndoChange.sql" />
     <Build Include="dbo\Procedures\spEquipmentCategory_Add.sql" />
+    <Build Include="dbo\Procedures\spEquipmentChange_SetApproval.sql" />
     <Build Include="dbo\Procedures\spEquipmentCondition_Add.sql" />
+    <Build Include="dbo\Procedures\spEquipmentNotification_Send.sql" />
     <Build Include="dbo\Procedures\spEquipmentPricing_Set.sql" />
+    <Build Include="dbo\Procedures\spNewEquipment_Add.sql" />
+    <Build Include="dbo\Procedures\spNewEquipment_List.sql" />
+    <Build Include="dbo\Procedures\spNewEquipment_PricingSet.sql" />
+    <Build Include="dbo\Procedures\spNewEquipment_SetApproval.sql" />
     <Build Include="dbo\Procedures\spShop_Add.sql" />
+    <Build Include="dbo\Procedures\spUser_CanApproveChanges.sql" />
     <Build Include="dbo\Procedures\spUser_CanEditEquipment.sql" />
+    <Build Include="dbo\Procedures\spUser_CanRequestNewEquipment.sql" />
+    <Build Include="dbo\Procedures\spUser_CanViewAnyEquipment.sql" />
     <Build Include="dbo\Procedures\spUser_CanViewEquipment.sql" />
     <Build Include="dbo\Procedures\spUser_EnsureCanEditEquipment.sql" />
+    <Build Include="dbo\Procedures\spUser_GetEquipmentChangeNotifications.sql" />
     <Build Include="dbo\Procedures\spUser_HasPermission.sql" />
     <Build Include="dbo\Tables\AppUser.sql" />
     <Build Include="dbo\Tables\AppUserRole.sql" />
@@ -98,22 +111,16 @@
     <Build Include="dbo\Tables\RolePermission.sql" />
     <Build Include="dbo\Tables\Shop.sql" />
     <Build Include="dbo\Tables\UserViewableCategory.sql" />
+    <Build Include="dbo\Triggers\TR_Equipment_AfterUpdate.sql" />
     <Build Include="dbo\Triggers\TR_EquipmentChange_AfterInsert.sql" />
     <Build Include="dbo\Views\v_ApproverUsers.sql" />
-    <Build Include="dbo\Views\v_Shop.sql" />
     <Build Include="dbo\Views\v_Category.sql" />
-    <Build Include="dbo\Views\v_EquipmentCondition.sql" />
-    <Build Include="dbo\Procedures\spUser_GetEquipmentChangeNotifications.sql" />
     <Build Include="dbo\Views\v_EquipmentChange.sql" />
-    <Build Include="dbo\Procedures\spEquipmentChange_SetApproval.sql" />
-    <Build Include="dbo\Procedures\spUser_CanApproveChanges.sql" />
-    <Build Include="dbo\Procedures\spEquipment_List.sql" />
-    <Build Include="dbo\Procedures\spUser_CanRequestNewEquipment.sql" />
-    <Build Include="dbo\Procedures\spUser_CanViewAnyEquipment.sql" />
-    <Build Include="dbo\Procedures\spNewEquipment_Request.sql" />
-    <Build Include="dbo\Procedures\spNewEquipment_PricingSet.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="dbo\Script.PostDeployment.InitialData.sql" />
+    <Build Include="dbo\Views\v_EquipmentCondition.sql" />
+    <Build Include="dbo\Views\v_EquipmentToBuy.sql" />
+    <Build Include="dbo\Views\v_Shop.sql" />
+    <None Include="dbo\Script.PostDeployment.InitialData.sql" />
+    <Build Include="dbo\Procedures\spUser_Register.sql" />
+    <Build Include="dbo\Views\v_UserRoles.sql" />
   </ItemGroup>
 </Project>
