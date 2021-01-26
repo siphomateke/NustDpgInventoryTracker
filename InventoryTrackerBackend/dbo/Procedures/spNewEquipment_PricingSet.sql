@@ -14,4 +14,4 @@ AS
 		INSERT INTO NewEquipmentPricing
 			(NewEquipmentId, ShopId, EquipmentPrice, DatePriceChecked)
 		VALUES
-			(@NewEquipmentId, @ShopId, EquipmentPrice, @DatePriceChecked);
+			(@NewEquipmentId, @ShopId, @EquipmentPrice, @DatePriceChecked);

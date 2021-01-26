@@ -19,11 +19,11 @@ AS
 	-- Auto generate equipment notification titles from notification type and equipment name
 	IF @Title is NULL
 		IF @NotificationTypeName = 'NEEDS_REPAIR'
-			SET @Title = CONCAT(@EquipmentName + ' needs repairing');
+			SET @Title = CONCAT(@EquipmentName, ' needs repairing');
 		ELSE IF @NotificationTypeName = 'OUT_OF_STOCK'
-			SET @Title = CONCAT(@EquipmentName + ' is out of stock');
+			SET @Title = CONCAT(@EquipmentName, ' is out of stock');
 		ELSE IF @NotificationTypeName = 'RUNNING_LOW'
-			SET @Title = CONCAT(@EquipmentName + '''s stock is running low');
+			SET @Title = CONCAT(@EquipmentName, '''s stock is running low');
 	
 	-- Send notification to all users who can view the equipment and thus might be interested
 	INSERT INTO EquipmentNotification
