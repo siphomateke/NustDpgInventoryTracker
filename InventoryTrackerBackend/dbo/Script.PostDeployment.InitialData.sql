@@ -13,7 +13,8 @@ IF NOT EXISTS(SELECT 1 FROM Permission WHERE Name = 'CAN_APPROVE_CHANGES')
         ('CAN_APPROVE_CHANGES', 'Can approve requests to change equipment data.'),
         ('CAN_ASK_FOR_CHANGES', 'Can make changes to equipment data after approval.'),
         ('MODIFY_PERMISSIONS', 'Can change users'' or roles'' permissions'),
-        ('MANAGE_USERS', 'Can add, remove or update users.');
+        ('MANAGE_USERS', 'Can add, remove or update users.'),
+        ('CAN_ASK_FOR_EQUIPMENT', 'Can request for new equipment to be bought.');
 
     INSERT INTO AppUserRole
         (Name)
