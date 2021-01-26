@@ -1,9 +1,10 @@
 ﻿-- Allows users to request new equipment to be bought
-CREATE PROCEDURE [dbo].[spNewEquipment_Request]
+CREATE PROCEDURE [dbo].[spNewEquipment_Add]
 	@UserId INT,
 	@Name VARCHAR (50),
 	@Description VARCHAR (500),
-	@Quantity INT
+	@Quantity INT,
+	@NewEquipmentId INT = NULL OUTPUT
 AS
 	DECLARE @CanRequest BIT;
 	EXEC spUser_CanRequestNewEquipment @UserId, @CanRequest OUTPUT;
@@ -16,3 +17,5 @@ AS
 			(AddedByUserId, Name, Description, Quantity, Approved, ApprovedByUserId)
 		VALUES
 			(@UserId, @Name, @Description, @Quantity, NULL, NULL);
+
+		SET @NewEquipmentId = IDENT_CURRENT('NewEquipment');

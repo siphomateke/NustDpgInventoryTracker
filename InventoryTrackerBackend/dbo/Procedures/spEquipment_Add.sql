@@ -15,7 +15,9 @@
     @ShopId             INT = NULL,
     @EquipmentPrice     INT = NULL,
     @DatePriceChecked   DATETIME = NULL,
-    @IsOriginalPurchase BIT = NULL
+    @IsOriginalPurchase BIT = NULL,
+
+    @EquipmentId INT = NULL OUTPUT
 AS
     -- TODO: Use transaction?
 	INSERT INTO Equipment 
@@ -23,7 +25,7 @@ AS
     VALUES 
         (@Name, @Description, @Quantity, @LocationInHome, @Lost, @ConditionId, @Age, @DateOfPurchase, @ReceiptImage, @WarrantyExpiryDate, @WarrantyImage);
 
-    DECLARE @EquipmentId AS INT = IDENT_CURRENT('Category');
+    SET @EquipmentId = IDENT_CURRENT('Category');
     -- Add a single row for price information. 
     -- If more information about shop prices is known, they should be added later
     EXEC spEquipmentPricing_Set @ShopId, @EquipmentId, @EquipmentPrice, @DatePriceChecked, @IsOriginalPurchase;
