@@ -13,9 +13,11 @@ BEGIN
 	SELECT TOP(1) @Username = Username FROM AppUser
 	WHERE AppUser.UserId = (SELECT ChangedByUserId FROM inserted);
 
-	-- TODO: Make sure user still exists
+	-- If the user has since been deleted, use a different name for them in the notification message.
+	IF @Username IS NULL
+		SET @Username = '<missing user>';
 
-	-- Get all users that should be notified about equipment changes
+	-- Notify all users who can approve equipment change notifications
 	INSERT INTO EquipmentChangeNotification
 	(
 		[UserId],
