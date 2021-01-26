@@ -110,5 +110,10 @@
     <Build Include="dbo\Procedures\spEquipment_List.sql" />
     <Build Include="dbo\Procedures\spUser_CanRequestNewEquipment.sql" />
     <Build Include="dbo\Procedures\spUser_CanViewAnyEquipment.sql" />
+    <Build Include="dbo\Procedures\spNewEquipment_Request.sql" />
+    <Build Include="dbo\Procedures\spNewEquipment_PricingSet.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="dbo\Script.PostDeployment.InitialData.sql" />
   </ItemGroup>
 </Project>
