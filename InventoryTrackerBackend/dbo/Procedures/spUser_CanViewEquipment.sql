@@ -3,7 +3,10 @@
 	@EquipmentId int,
 	@CanViewEquipment BIT OUTPUT
 AS
-	IF EXISTS(
+	DECLARE @CanViewAny BIT;
+	EXEC spUser_CanViewAnyEquipment @UserId, @CanViewAny OUTPUT;
+
+	IF @CanViewAny = 1 AND EXISTS(
 		SELECT 1 FROM  UserViewableCategory
 		INNER JOIN EquipmentCategory 
 		ON (UserViewableCategory.CategoryId = EquipmentCategory.CategoryId)

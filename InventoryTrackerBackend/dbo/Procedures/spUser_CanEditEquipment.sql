@@ -2,4 +2,4 @@
 	@UserId INT,
 	@CanEdit BIT OUTPUT
 AS
-	EXEC spUser_HasPermission @UserId, 'CAN_MAKE_CHANGES', @CanEdit OUTPUT;
+	EXEC spUser_HasPermission @UserId, 'CAN_ASK_FOR_CHANGES', @CanEdit OUTPUT;

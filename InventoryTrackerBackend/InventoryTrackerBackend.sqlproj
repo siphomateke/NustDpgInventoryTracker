@@ -107,5 +107,8 @@
     <Build Include="dbo\Views\v_EquipmentChange.sql" />
     <Build Include="dbo\Procedures\spEquipmentChange_SetApproval.sql" />
     <Build Include="dbo\Procedures\spUser_CanApproveChanges.sql" />
+    <Build Include="dbo\Procedures\spEquipment_List.sql" />
+    <Build Include="dbo\Procedures\spUser_CanRequestNewEquipment.sql" />
+    <Build Include="dbo\Procedures\spUser_CanViewAnyEquipment.sql" />
   </ItemGroup>
 </Project>

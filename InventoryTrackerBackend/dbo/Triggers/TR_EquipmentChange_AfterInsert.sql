@@ -11,8 +11,12 @@ BEGIN
 	DECLARE @ChangedByUserId INT;
 	SELECT @ChangedByUserId = ChangedByUserId FROM inserted;
 
-	-- If the user who authored the change can approve changes, auto approve the change
-	IF EXISTS(SELECT 1 FROM v_ApproverUsers WHERE UserId = @ChangedByUserId) BEGIN
+	-- If the user who authored the change can approve and directly make changes, auto approve the change
+	DECLARE @CanDirectlyChange BIT
+	EXEC spUser_HasPermission @ChangedByUserId, 'CAN_MAKE_CHANGES', @CanDirectlyChange OUTPUT;
+	DECLARE @CanApprove BIT;
+	EXEC spUser_HasPermission @ChangedByUserId, 'CAN_APPROVE_CHANGES', @CanApprove OUTPUT;
+	IF @CanDirectlyChange = 1 AND @CanApprove = 1 BEGIN
 		DECLARE @EquipmentChangeId INT;
 		SELECT @EquipmentChangeId = EquipmentChangeId FROM inserted
 
