@@ -28,10 +28,10 @@ namespace InventoryTrackerFrontend
             InitializeComponent();
         }
 
-        private void searchButton_Click(object sender, RoutedEventArgs e)
+        private async void searchButton_Click(object sender, RoutedEventArgs e)
         {
             DataAccess db = new DataAccess();
-            equipment = db.GetEquipment();
+            equipment = await db.GetEquipment();
 
             dataGrid.ItemsSource = equipment;
         }

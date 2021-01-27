@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InventoryTrackerFrontend"
+        xmlns:local="clr-namespace:InventoryTrackerFrontend" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="LoginWindow" Height="200" Width="300">
     <Grid>
@@ -15,5 +15,7 @@
         </StackPanel>
         <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="76" IsDefault="True" Margin="109,0,0,21.4" Click="loginButton_Click"/>
         <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" Margin="204,0,0,21.4" VerticalAlignment="Bottom" Width="75" IsCancel="True" Click="exitButton_Click"/>
+
+        <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="False"  BusyContent="Logging in..." />
     </Grid>
 </Window>

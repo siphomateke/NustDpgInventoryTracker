@@ -93,11 +93,18 @@
       <DependentUpon>AddEquipmentForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\EquipmentCondition.cs" />
+    <Compile Include="UserControls\FilePicker.xaml.cs">
+      <DependentUpon>FilePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewEquipmentForm.xaml.cs">
       <DependentUpon>ViewEquipmentForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserManager.cs" />
     <Page Include="AddEquipmentForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FilePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

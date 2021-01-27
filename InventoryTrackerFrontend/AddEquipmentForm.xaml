@@ -3,57 +3,75 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:InventoryTrackerFrontend" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:local="clr-namespace:InventoryTrackerFrontend" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:uc="clr-namespace:InventoryTrackerFrontend.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddEquipmentForm" Loaded="Page_Loaded">
 
-    <StackPanel Orientation="Vertical" Margin="10">
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Name</Label>
-            <TextBox Width="200" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Description</Label>
-            <TextBlock Width="200" Height="65" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Quantity</Label>
-            <xctk:IntegerUpDown Width="200" Minimum="0" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Location in home</Label>
-            <TextBox Width="200" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Lost</Label>
-            <CheckBox Width="200" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Condition</Label>
-            <ComboBox x:Name="conditionComboBox" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Age</Label>
-            <xctk:IntegerUpDown Width="200" Minimum="0" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Date of purchase</Label>
-            <DatePicker Width="200" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Receipt image</Label>
-            <Button Content="Browse..."></Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Width="150">Warranty expiry date</Label>
-            <DatePicker />
+    <Grid>
+        <!--<Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="1" Grid.Row="1">Hello World</TextBlock>
+        </Grid>-->
+        <StackPanel Orientation="Vertical" Margin="10">
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Name</Label>
+                <TextBox Width="200" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Description</Label>
+                <TextBox Width="200" Height="65" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Quantity</Label>
+                <xctk:IntegerUpDown Minimum="0" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Location in home</Label>
+                <TextBox Width="200" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Lost</Label>
+                <CheckBox Width="200" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Condition</Label>
+                <ComboBox Name="conditionComboBox" VerticalAlignment="Center" IsEnabled="False" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Age</Label>
+                <xctk:IntegerUpDown Minimum="0" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Date of purchase</Label>
+                <DatePicker VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Receipt image</Label>
+                <uc:FilePicker VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Warranty expiry date</Label>
+                <DatePicker VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Warranty image</Label>
+                <uc:FilePicker VerticalAlignment="Center"/>
+            </StackPanel>
         </StackPanel>
 
-        <!-- 
-        ConditionId INT 
-        ReceiptImage VARCHAR (4096)
-        WarrantyImage VARCHAR (4096)
-        -->
-    </StackPanel>
+        <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="False"  BusyContent="Loading..." />
+    </Grid>
 </Page>

@@ -25,7 +25,7 @@ namespace InventoryTrackerFrontend
             InitializeComponent();
         }
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        private async void loginButton_Click(object sender, RoutedEventArgs e)
         {
             if (usernameTextBox.Text == "")
             {
@@ -42,7 +42,9 @@ namespace InventoryTrackerFrontend
 
             try
             {
-                User loggedInUser = UserManager.Login(usernameTextBox.Text, passwordBox.Password);
+                busyIndicator.IsBusy = true;
+                User loggedInUser = await UserManager.Login(usernameTextBox.Text, passwordBox.Password);
+                busyIndicator.IsBusy = false;
 
                 bool loginSuccess = loggedInUser != null;
                 if (loginSuccess)
@@ -60,6 +62,10 @@ namespace InventoryTrackerFrontend
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                busyIndicator.IsBusy = false;
             }
         }
 

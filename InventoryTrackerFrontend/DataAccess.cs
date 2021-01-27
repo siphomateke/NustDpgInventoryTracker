@@ -27,26 +27,26 @@ namespace InventoryTrackerFrontend
             }
         }
 
-        public User Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
             using (var con = connect())
             {
-                return con.Query<User>("dbo.spUser_Login @Username, @Password", new { Username = username, Password = password }).ToList().FirstOrDefault();
+                return (await con.QueryAsync<User>("dbo.spUser_Login @Username, @Password", new { Username = username, Password = password })).ToList().FirstOrDefault();
             }
         }
 
-        public List<EquipmentCondition> GetEquipmentConditions()
+        public async Task<List<EquipmentCondition>> GetEquipmentConditions()
         {
             using (var con = connect())
             {
-                return con.Query<EquipmentCondition>("SELECT * FROM v_EquipmentCondition").ToList();
+                return (await con.QueryAsync<EquipmentCondition>("SELECT * FROM v_EquipmentCondition")).ToList();
             }
         }
-        public List<Equipment> GetEquipment()
+        public async Task<List<Equipment>> GetEquipment()
         {
             using (var con = connect())
             {
-                return con.Query<Equipment>("dbo.spEquipment_List @UserId", new { UserId = UserManager.LoggedInUser.UserId }).ToList();
+                return (await con.QueryAsync<Equipment>("dbo.spEquipment_List @UserId", new { UserId = UserManager.LoggedInUser.UserId })).ToList();
             }
         }
     }

@@ -11,10 +11,10 @@ namespace InventoryTrackerFrontend
     {
         public static User LoggedInUser { get; set; }
 
-        public static User Login(string username, string password)
+        public static async Task<User> Login(string username, string password)
         {
             DataAccess db = new DataAccess();
-            var user = db.Login(username, password);
+            var user = await db.Login(username, password);
             if (user != null)
             {
                 LoggedInUser = user;

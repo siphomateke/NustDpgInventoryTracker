@@ -26,12 +26,32 @@ namespace InventoryTrackerFrontend
             InitializeComponent();
         }
 
+        private async void LoadEquipmentConditions()
+        {
+            this.busyIndicator.IsBusy = true;
+            try
+            {
+                DataAccess db = new DataAccess();
+                List<EquipmentCondition> conditions = await db.GetEquipmentConditions();
+                conditionComboBox.ItemsSource = conditions.Select(c => c.Name);
+                conditionComboBox.SelectedIndex = 0;
+                conditionComboBox.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                conditionComboBox.IsEnabled = false;
+                MessageBox.Show(ex.Message, "Error loading conditions", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
+            finally
+            {
+                this.busyIndicator.IsBusy = false;
+            }
+        }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            DataAccess db = new DataAccess();
-            List<EquipmentCondition> conditions = db.GetEquipmentConditions();
-            conditionComboBox.ItemsSource = conditions.Select(c => c.Name);
-            conditionComboBox.SelectedIndex = 0;
+            LoadEquipmentConditions();
         }
     }
 }
