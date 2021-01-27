@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryTrackerFrontend.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,19 +17,23 @@ using System.Windows.Shapes;
 namespace InventoryTrackerFrontend
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ViewEquipmentForm.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class ViewEquipmentForm : Page
     {
-        public MainWindow()
+        List<Equipment> equipment = new List<Equipment>();
+
+        public ViewEquipmentForm()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow win = new LoginWindow();
-            win.Show();
+            DataAccess db = new DataAccess();
+            equipment = db.GetEquipment();
+
+            dataGrid.ItemsSource = equipment;
         }
     }
 }

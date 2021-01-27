@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace InventoryTrackerFrontend.Models
 {
-    public class Equipment
+    class EquipmentCondition
     {
-        public int EquipmentId { get; set; }
+        public int ConditionId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public int Quantity { get; set; }
     }
 }

@@ -7,12 +7,13 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="200" Width="300">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Width="264">
+        <StackPanel HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Width="264">
             <Label x:Name="usernameLabel" Content="Username" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox x:Name="usernameTextBox" TextWrapping="Wrap"/>
             <Label x:Name="passwordLabel" Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <PasswordBox x:Name="passwordBox"/>
         </StackPanel>
-        <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="76" Click="loginButton_Click" IsDefault="True" Margin="0,0,0,10"/>
+        <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="76" IsDefault="True" Margin="109,0,0,21.4" Click="loginButton_Click"/>
+        <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" Margin="204,0,0,21.4" VerticalAlignment="Bottom" Width="75" IsCancel="True" Click="exitButton_Click"/>
     </Grid>
 </Window>

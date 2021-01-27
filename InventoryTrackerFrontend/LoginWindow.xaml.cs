@@ -40,24 +40,32 @@ namespace InventoryTrackerFrontend
                 return;
             }
 
-            DataAccess db = new DataAccess();
-
-            User loggedInUser = db.Login(usernameTextBox.Text, passwordBox.Password);
-
-            bool loginSuccess = loggedInUser != null;
-            if (loginSuccess)
+            try
             {
-                // Save the logged in user
-                MessageBox.Show(loggedInUser.FirstName + " " + loggedInUser.LastName);
-                MessageBox.Show($"Successfully logged in as {loggedInUser.FirstName} {loggedInUser.LastName} ({loggedInUser.Username})", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Hide();
+                User loggedInUser = UserManager.Login(usernameTextBox.Text, passwordBox.Password);
+
+                bool loginSuccess = loggedInUser != null;
+                if (loginSuccess)
+                {
+                    MessageBox.Show($"Successfully logged in as {loggedInUser.FirstName} {loggedInUser.LastName} ({loggedInUser.Username})", "Login successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid username or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    usernameTextBox.Clear();
+                    passwordBox.Clear();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid username or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                usernameTextBox.Clear();
-                passwordBox.Clear();
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void exitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
