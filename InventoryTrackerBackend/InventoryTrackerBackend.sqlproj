@@ -124,5 +124,7 @@
     <Build Include="dbo\Views\v_Shop.sql" />
     <Build Include="dbo\Views\v_UserRoles.sql" />
     <None Include="dbo\Script.PostDeployment.InitialData.sql" />
+    <Build Include="dbo\Views\v_EquipmentDetails.sql" />
+    <Build Include="dbo\Procedures\spEquipment_GetPrices.sql" />
   </ItemGroup>
 </Project>

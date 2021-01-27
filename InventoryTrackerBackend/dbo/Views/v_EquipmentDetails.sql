@@ -1,5 +1,5 @@
 ﻿CREATE VIEW [dbo].[v_EquipmentDetails]
-	AS SELECT Equipment.*, EquipmentPricing.EquipmentPrice as Price, Shop.Name as Shop, Shop.Town as ShopTown, Country.Name as ShopCountry, EquipmentCondition.Name AS Condition, UserId FROM Equipment
+	AS SELECT Equipment.*, EquipmentPricing.EquipmentPrice as Price, Shop.Name as Shop, Shop.Town as ShopTown, Shop.Country as ShopCountry, EquipmentCondition.Name AS Condition, UserId FROM Equipment
 		INNER JOIN EquipmentCategory 
 		ON (Equipment.EquipmentId = EquipmentCategory.EquipmentId)
 		INNER JOIN UserViewableCategory
@@ -12,8 +12,6 @@
 		-- Pricing information when bought
 		INNER JOIN EquipmentPricing
 		ON (Equipment.EquipmentId = EquipmentPricing.EquipmentId)
-		INNER JOIN Shop
+		INNER JOIN v_Shop as Shop
 		ON (EquipmentPricing.ShopId = Shop.ShopId)
-		INNER JOIN Country
-		ON (Shop.CountryId = Country.CountryId)
 		WHERE IsOriginalPurchase = 1;
