@@ -1,0 +1,34 @@
+﻿<Window x:Class="InventoryTrackerFrontend.Views.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InventoryTrackerFrontend.Views"
+        mc:Ignorable="d"
+        Title="User registration" Height="240.995" Width="396.919">
+    <Grid>
+        <StackPanel x:Name="_mainForm" Orientation="Vertical" Margin="10">
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Username</Label>
+                <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Username}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Password</Label>
+                <PasswordBox Width="200" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">First name</Label>
+                <TextBox Width="200" VerticalAlignment="Center" Text="{Binding FirstName}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Last name</Label>
+                <TextBox Width="200" VerticalAlignment="Center" Text="{Binding LastName}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Email</Label>
+                <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Email}" />
+            </StackPanel>
+            <Button Margin="0,20,0,0" Padding="5">Register</Button>
+        </StackPanel>
+    </Grid>
+</Window>

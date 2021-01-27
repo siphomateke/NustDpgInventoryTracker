@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryTrackerFrontend.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,17 +19,27 @@ namespace InventoryTrackerFrontend
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            LoginWindow win = new LoginWindow();
-            win.Show();
+            //_mainFrame.Navigate(new WelcomePage());
+
+            this.busyIndicator.IsBusy = true;
+            try
+            {
+                await UserManager.Login("lisentu", "critical");
+                _mainFrame.Navigate(new HomePage());
+            }
+            finally
+            {
+                this.busyIndicator.IsBusy = false;
+            }
         }
     }
 }

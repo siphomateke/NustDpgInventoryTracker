@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InventoryTrackerFrontend" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:uc="clr-namespace:InventoryTrackerFrontend.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="AddEquipmentForm" Loaded="Page_Loaded">
+      d:DesignHeight="450" d:DesignWidth="500"
+      Title="AddEquipmentForm">
 
     <Grid>
         <!--<Grid>
@@ -24,6 +24,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="1" Grid.Row="1">Hello World</TextBlock>
+            <TextBox Grid.Column="2" Grid.Row="1"/>
         </Grid>-->
         <StackPanel Orientation="Vertical" Margin="10">
             <StackPanel Orientation="Horizontal">
@@ -48,7 +49,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150">Condition</Label>
-                <ComboBox Name="conditionComboBox" VerticalAlignment="Center" IsEnabled="False" />
+                <!--<uc:EquipmentConditionDropdown x:Name="conditionComboBox"/>-->
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150">Age</Label>
@@ -70,8 +71,11 @@
                 <Label Width="150">Warranty image</Label>
                 <uc:FilePicker VerticalAlignment="Center"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button Padding="20,5">Add Equipment</Button>
+            </StackPanel>
         </StackPanel>
 
-        <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="False"  BusyContent="Loading..." />
+        <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="{Binding ElementName=conditionComboBox, Path=IsLoading}"  BusyContent="Loading..." />
     </Grid>
 </Page>

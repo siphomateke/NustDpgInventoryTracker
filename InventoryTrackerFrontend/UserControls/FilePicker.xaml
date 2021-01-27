@@ -4,11 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InventoryTrackerFrontend.UserControls"
-             mc:Ignorable="d"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             mc:Ignorable="d">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="filePathTextBox" Text="{Binding FilePath}" Margin="0,0,0,-0.2" Width="250" VerticalAlignment="Center" />
+            <TextBox x:Name="filePathTextBox" Margin="0,0,0,-0.2" Width="250" VerticalAlignment="Center" />
             <Button x:Name="browserButton" Content="Browse..." Margin="0,0,0,-0.2" Width="80" Click="browserButton_Click" VerticalAlignment="Center"/>
         </StackPanel>
     </Grid>

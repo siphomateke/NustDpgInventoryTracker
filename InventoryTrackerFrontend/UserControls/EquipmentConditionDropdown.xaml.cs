@@ -14,21 +14,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace InventoryTrackerFrontend
+namespace InventoryTrackerFrontend.UserControls
 {
     /// <summary>
-    /// Interaction logic for AddEquipmentForm.xaml
+    /// Interaction logic for EquipmentConditionDropdown.xaml
     /// </summary>
-    public partial class AddEquipmentForm : Page
+    public partial class EquipmentConditionDropdown : UserControl
     {
-        public AddEquipmentForm()
+        public bool IsLoading { get; set; }
+        public EquipmentConditionDropdown()
         {
             InitializeComponent();
         }
 
+        // FIXME: Add selected prop
+
         private async void LoadEquipmentConditions()
         {
-            this.busyIndicator.IsBusy = true;
+            this.IsLoading = true;
             try
             {
                 DataAccess db = new DataAccess();
@@ -45,11 +48,11 @@ namespace InventoryTrackerFrontend
             }
             finally
             {
-                this.busyIndicator.IsBusy = false;
+                this.IsLoading = false;
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LoadEquipmentConditions();
         }

@@ -9,6 +9,7 @@ namespace InventoryTrackerFrontend
 {
     public static class UserManager
     {
+        public static bool LoggedIn { get; set; }
         public static User LoggedInUser { get; set; }
 
         public static async Task<User> Login(string username, string password)
@@ -18,12 +19,14 @@ namespace InventoryTrackerFrontend
             if (user != null)
             {
                 LoggedInUser = user;
+                LoggedIn = true;
             }
             return user;
         }
         public static void Logout()
         {
             LoggedInUser = null;
+            LoggedIn = false;
             LoginWindow win = new LoginWindow();
             win.Show();
         }

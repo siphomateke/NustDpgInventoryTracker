@@ -12,5 +12,35 @@ namespace InventoryTrackerFrontend.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int Quantity { get; set; }
+        public string LocationInHome { get; set; }
+        public bool Lost { get; set; }
+        public int Age { get; set; }
+        public DateTime DateOfPurchase { get; set; }
+        public string ReceiptImage { get; set; }
+        public string WarrantyExpiryDate { get; set; }
+        public string WarrantyImage { get; set; }
+        public string Condition { get; set; }
+        public int Price { get; set; }
+        public string PriceWithCurrency
+        {
+            get
+            {
+                return $"N${Price}";
+            }
+        }
+        public string Shop { get; set; }
+        public string ShopTown { get; set; }
+        public string ShopCountry { get; set; }
+
+        public string ShopDetails
+        {
+            get
+            {
+                return $"{Shop}, {ShopTown}, {ShopCountry}";
+            }
+        }
+        public List<Shop> Shops { get; set; }
+
+        public List<EquipmentPrices> Prices { get; set; }
     }
 }

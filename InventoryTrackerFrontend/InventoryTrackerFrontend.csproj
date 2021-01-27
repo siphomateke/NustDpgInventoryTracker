@@ -53,6 +53,9 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.78\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -89,18 +92,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddEquipmentForm.xaml.cs">
+    <Compile Include="Models\EquipmentPrices.cs" />
+    <Compile Include="Models\Shop.cs" />
+    <Compile Include="UserControls\EquipmentConditionDropdown.xaml.cs">
+      <DependentUpon>EquipmentConditionDropdown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddEquipmentForm.xaml.cs">
       <DependentUpon>AddEquipmentForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\EquipmentCondition.cs" />
     <Compile Include="UserControls\FilePicker.xaml.cs">
       <DependentUpon>FilePicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewEquipmentForm.xaml.cs">
-      <DependentUpon>ViewEquipmentForm.xaml</DependentUpon>
+    <Compile Include="Views\EquipmentDetailsPage.xaml.cs">
+      <DependentUpon>EquipmentDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegisterWindow.xaml.cs">
+      <DependentUpon>RegisterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewEquipmentPage.xaml.cs">
+      <DependentUpon>ViewEquipmentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserManager.cs" />
-    <Page Include="AddEquipmentForm.xaml">
+    <Compile Include="Views\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UserControls\EquipmentConditionDropdown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddEquipmentForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,11 +132,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewEquipmentForm.xaml">
+    <Page Include="Views\EquipmentDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoginWindow.xaml">
+    <Page Include="Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewEquipmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,13 +162,17 @@
     </Compile>
     <Compile Include="DataAccess.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="LoginWindow.xaml.cs">
+    <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Equipment.cs" />

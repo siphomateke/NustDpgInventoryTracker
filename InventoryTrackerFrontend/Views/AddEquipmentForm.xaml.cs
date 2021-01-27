@@ -17,23 +17,13 @@ using System.Windows.Shapes;
 namespace InventoryTrackerFrontend
 {
     /// <summary>
-    /// Interaction logic for ViewEquipmentForm.xaml
+    /// Interaction logic for AddEquipmentForm.xaml
     /// </summary>
-    public partial class ViewEquipmentForm : Page
+    public partial class AddEquipmentForm : Page
     {
-        List<Equipment> equipment = new List<Equipment>();
-
-        public ViewEquipmentForm()
+        public AddEquipmentForm()
         {
             InitializeComponent();
-        }
-
-        private async void searchButton_Click(object sender, RoutedEventArgs e)
-        {
-            DataAccess db = new DataAccess();
-            equipment = await db.GetEquipment();
-
-            dataGrid.ItemsSource = equipment;
         }
     }
 }

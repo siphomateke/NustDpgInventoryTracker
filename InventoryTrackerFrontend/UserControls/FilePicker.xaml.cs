@@ -21,16 +21,14 @@ namespace InventoryTrackerFrontend.UserControls
     /// </summary>
     public partial class FilePicker : UserControl
     {
+        public string FilePath { get; set; }
+        public string DefaultExt = ".png";
+        public string Filter = "Images|*.jpeg;*.png;*.jpg";
+
         public FilePicker()
         {
             InitializeComponent();
-            // filePathTextBox.DataContext = this;
         }
-
-        public string FilePath { get; set; }
-
-        public string DefaultExt = ".png";
-        public string Filter = "Images|*.jpeg;*.png;*.jpg";
 
         private void browserButton_Click(object sender, RoutedEventArgs e)
         {
@@ -40,7 +38,7 @@ namespace InventoryTrackerFrontend.UserControls
             if (dialog.ShowDialog() == true)
             {
                 FilePath = dialog.FileName;
-                filePathTextBox.Text = dialog.FileName;
+                filePathTextBox.Text = FilePath;
             }
         }
     }

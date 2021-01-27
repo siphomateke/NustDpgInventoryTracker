@@ -49,5 +49,43 @@ namespace InventoryTrackerFrontend
                 return (await con.QueryAsync<Equipment>("dbo.spEquipment_List @UserId", new { UserId = UserManager.LoggedInUser.UserId })).ToList();
             }
         }
+
+        public async Task<List<Shop>> GetEquipmentAvailableShops(int equipmentId)
+        {
+            using (var con = connect())
+            {
+                return (await con.QueryAsync<Shop>("dbo.spEquipment_AvailableShops @UserId, @EquipmentId", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId })).ToList();
+            }
+        }
+
+        public async Task<List<EquipmentPrices>> GetEquipmentPrices(int equipmentId)
+        {
+            using (var con = connect())
+            {
+                return (await con.QueryAsync<EquipmentPrices, Shop, EquipmentPrices>(
+                            sql: "dbo.spEquipment_GetPrices @UserId, @EquipmentId",
+                            map: (price, shop) => { price.Shop = shop; return price; },
+                            param: new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId },
+                            splitOn: "ShopId"
+                        )).ToList();
+            }
+        }
+
+        public async Task<Equipment> GetEquipmentDetails(int equipmentId)
+        {
+            using (var con = connect())
+            {
+                Equipment equipment = (await con.QueryAsync<Equipment>("dbo.spEquipment_Details @EquipmentId, @UserId", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId })).FirstOrDefault();
+                if (equipment != null)
+                {
+                    var shops = await GetEquipmentAvailableShops(equipmentId);
+                    equipment.Shops = shops;
+
+                    var prices = await GetEquipmentPrices(equipmentId);
+                    equipment.Prices = prices;
+                }
+                return equipment;
+            }
+        }
     }
 }
