@@ -18,12 +18,7 @@ AS
 			[DateOfPurchase], 
 			[ReceiptImage], 
 			[WarrantyExpiryDate], 
-			[WarrantyImage], 
-			Price, 
-			Shop, 
-			ShopTown, 
-			ShopCountry,
-			ShopId
+			[WarrantyImage]
 		FROM v_EquipmentDetails
 		WHERE UserId = @UserId;
 	ELSE
