@@ -13,5 +13,9 @@ namespace InventoryTrackerFrontend.ViewModels
         public int? EquipmentId { get; set; }
         public Equipment Equipment { get; set; }
         public List<EquipmentCategory> AllCategories { get; set; }
+
+        public List<Shop> AllShops { get; set; }
+
+        public List<int> CategoryIds { get; set; }
     }
 }

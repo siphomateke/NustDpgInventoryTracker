@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InventoryTrackerFrontend.Views"
         mc:Ignorable="d"
-        Title="NewCategoryDialog" Height="128.533" Width="271.2">
+        Title="Add new category" Height="150" Width="300">
     <StackPanel Margin="5">
         <StackPanel Orientation="Horizontal">
             <Label Width="100">Name</Label>
-            <TextBox Text="{Binding Name}"/>
+            <TextBox Text="{Binding Name}" Width="150"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Width="100">Description</Label>
-            <TextBox  Text="{Binding Description}"/>
+            <TextBox Text="{Binding Description}" Width="150"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button VerticalAlignment="Bottom" Padding="10,5" Margin="5" Content="Add" Click="OKButton_Click" IsDefault="True" />

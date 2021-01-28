@@ -103,9 +103,6 @@
     <Compile Include="Models\EquipmentChange.cs" />
     <Compile Include="Models\EquipmentPrices.cs" />
     <Compile Include="Models\Shop.cs" />
-    <Compile Include="UserControls\EquipmentConditionDropdown.xaml.cs">
-      <DependentUpon>EquipmentConditionDropdown.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserManager.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\EditEquipmentFormViewModel.cs" />
@@ -139,10 +136,6 @@
     <Compile Include="Views\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
-    <Page Include="UserControls\EquipmentConditionDropdown.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\EditEquipmentForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

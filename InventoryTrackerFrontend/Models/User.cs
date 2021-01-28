@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryTrackerFrontend.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryTrackerFrontend.Models
 {
-    public class User
+    public class User : BaseViewModel
     {
         public int UserId { get; set; }
         public string Username { get; set; }

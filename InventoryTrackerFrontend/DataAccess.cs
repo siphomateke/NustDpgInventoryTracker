@@ -57,6 +57,14 @@ namespace InventoryTrackerFrontend
             }
         }
 
+        public async Task<List<Shop>> GetAllShops()
+        {
+            using (var con = connect())
+            {
+                return (await con.QueryAsync<Shop>("dbo.v_Shop")).ToList();
+            }
+        }
+
         public async Task<List<EquipmentPrices>> GetEquipmentPrices(int equipmentId)
         {
             using (var con = connect())
@@ -197,6 +205,14 @@ namespace InventoryTrackerFrontend
                 await con.ExecuteAsync("dbo.spCategory_Add", p, commandType: CommandType.StoredProcedure);
             }
             return p.Get<int>("CategoryId");
+        }
+
+        public async Task AddCategoryToEquipment(int categoryId, int equipmentId)
+        {
+            using (var con = connect())
+            {
+                await con.ExecuteAsync("dbo.spEquipmentCategory_Add", new { CategoryId = categoryId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure);
+            }
         }
     }
 }

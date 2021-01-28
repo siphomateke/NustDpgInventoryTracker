@@ -128,5 +128,8 @@
     <Build Include="dbo\Procedures\spEquipment_GetPrices.sql" />
     <Build Include="dbo\Views\v_EquipmentPricing.sql" />
     <Build Include="dbo\Procedures\spShop_Details.sql" />
+    <Build Include="dbo\Procedures\spEquipment_GetCategories.sql" />
+    <Build Include="dbo\Procedures\spEquipmentChange_List.sql" />
+    <Build Include="dbo\Views\v_EquipmentChangeDetails.sql" />
   </ItemGroup>
 </Project>

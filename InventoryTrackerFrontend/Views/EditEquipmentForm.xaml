@@ -14,51 +14,56 @@
         <ViewModels:EditEquipmentFormViewModel/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Page.Resources>
+
     <Grid>
-        <StackPanel x:Name="_mainForm" Orientation="Vertical" Margin="10">
+        <StackPanel Orientation="Vertical" Margin="10">
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Name"/>
-                <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Name}" />
+                <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Equipment.Name}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Width="150" Content="Category"/>
+                <Label Width="150" Content="Categories"/>
                 <xctk:CheckComboBox
                     x:Name="CategoryComboBox"
                     VerticalAlignment="Center" 
                     DisplayMemberPath="Name"
+                    ItemsSource="{Binding AllCategories}"
                     ValueMemberPath="CategoryId"
-                    SelectedItemsOverride="{Binding SelectedCategories}" 
-                    ItemsSource="{Binding Categories}"/>
+                    SelectedMemberPath="Name"
+                    SelectedItemsOverride="{Binding Equipment.Categories}"/>
                 <Button x:Name="AddCategoryButton" Margin="5,0,0,0" VerticalAlignment="Center" Content="New category" Click="AddCategoryButton_Click"/>
                 <!--<ComboBox VerticalAlignment="Center" ItemsSource="{Binding Categories}" DisplayMemberPath="Name" SelectedValuePath="CategoryId" SelectedIndex="0" />-->
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Description"/>
-                <TextBox Width="200" Height="65" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding Description}"/>
+                <TextBox Width="200" Height="65" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding Equipment.Description}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Quantity"/>
-                <xctk:IntegerUpDown Minimum="0" VerticalAlignment="Center" Value="{Binding Quantity}"/>
+                <xctk:IntegerUpDown Minimum="0" VerticalAlignment="Center" Value="{Binding Equipment.Quantity}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Location in home"/>
-                <TextBox Width="200" VerticalAlignment="Center" Text="{Binding LocationInHome}" />
+                <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Equipment.LocationInHome}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Lost"/>
-                <CheckBox Width="200" VerticalAlignment="Center" IsChecked="{Binding Lost}" />
+                <CheckBox Width="200" VerticalAlignment="Center" IsChecked="{Binding Equipment.Lost}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Condition"/>
-                <!--<uc:EquipmentConditionDropdown x:Name="conditionComboBox"/>-->
+                <ComboBox x:Name="conditionComboBox" VerticalAlignment="Center" IsEnabled="False" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Age"/>
-                <xctk:IntegerUpDown Minimum="0" VerticalAlignment="Center" Value="{Binding Age}" />
+                <xctk:IntegerUpDown Minimum="0" VerticalAlignment="Center" Value="{Binding Equipment.Age}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Date of purchase"/>
-                <DatePicker VerticalAlignment="Center" SelectedDate="{Binding DateOfPurchase}" />
+                <DatePicker VerticalAlignment="Center" SelectedDate="{Binding Equipment.DateOfPurchase}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Receipt image"/>
@@ -67,18 +72,43 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Warranty expiry date"/>
-                <DatePicker VerticalAlignment="Center" SelectedDate="{Binding WarrantyExpiryDate}" />
+                <DatePicker VerticalAlignment="Center" SelectedDate="{Binding Equipment.WarrantyExpiryDate}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Warranty image"/>
                 <!-- FIXME: allow uploading images -->
                 <uc:FilePicker VerticalAlignment="Center"/>
             </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+                <Label FontWeight="Bold">Shops where equipment can be found</Label>
+                <DataGrid x:Name="ShopDataGrid" ItemsSource="{Binding Equipment.Shops}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" />
+                        <DataGridTextColumn Header="Location" Binding="{Binding Path=Location}"/>
+                        <DataGridTextColumn Header="Phone number" Binding="{Binding Path=PhoneNumber}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}"/>
+                        <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="AddShopButton">Add shop</Button>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+                <Label FontWeight="Bold">Prices</Label>
+                <DataGrid x:Name="PricingDataGrid" ItemsSource="{Binding Equipment.Prices}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="Original purchase" Binding="{Binding Path=IsOriginalPurchase}"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Path=PriceWithCurrency}"/>
+                        <DataGridTextColumn Header="Date checked" Binding="{Binding Path=DatePriceChecked}"/>
+                        <DataGridComboBoxColumn Header="Shop" ItemsSource="{Binding AllShops}" SelectedItemBinding="{Binding Shop.ShopId}" DisplayMemberPath="BasicDetails" SelectedValuePath="ShopId"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="AddPriceButton" Click="AddPriceButton_Click">Add price</Button>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                <Button Padding="20,5" x:Name="SaveButton" Click="SaveButton_Click" Content="Save"/>
+                <Button Padding="20,5" x:Name="SaveButton" Click="SaveButton_Click" Content="Save" IsDefault="True"/>
             </StackPanel>
         </StackPanel>
 
-        <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="{Binding IsLoading, ElementName=conditionComboBox}"  BusyContent="Loading..." />
+        <xctk:BusyIndicator x:Name="busyIndicator"  BusyContent="Loading..." />
     </Grid>
 </Page>
