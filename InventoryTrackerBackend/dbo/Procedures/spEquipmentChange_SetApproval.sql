@@ -31,7 +31,7 @@ AS
 				FROM 
 					Equipment INNER JOIN EquipmentChange
 					ON Equipment.EquipmentId = EquipmentChange.EquipmentId
-				WHERE Equipment.EquipmentId = @EquipmentId;
+				WHERE Equipment.EquipmentId = @EquipmentId  AND EquipmentChangeId = @EquipmentChangeId;
 			END
 
 			-- Set the change as being successfully approved or rejected
