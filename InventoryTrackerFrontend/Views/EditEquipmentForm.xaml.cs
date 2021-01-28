@@ -49,6 +49,7 @@ namespace InventoryTrackerFrontend
             ViewModel.EquipmentId = equipmentId;
             PostInit();
             LoadEquipmentConditions();
+            RefreshShops();
         }
         public EditEquipmentForm()
         {
@@ -57,6 +58,7 @@ namespace InventoryTrackerFrontend
             ViewModel.Equipment = new Equipment();
             RefreshCategories();
             LoadEquipmentConditions();
+            RefreshShops();
         }
 
         private async void LoadEquipmentConditions()
@@ -143,7 +145,12 @@ namespace InventoryTrackerFrontend
                     await db.RequestEquipmentChange(ViewModel.Equipment);
 
                 // Update categories
-                await Task.WhenAll(ViewModel.Equipment.Categories.Select((c) => db.AddCategoryToEquipment(c.CategoryId, (int)ViewModel.EquipmentId)));
+                // await Task.WhenAll(ViewModel.Equipment.Categories.Select((c) => db.AddCategoryToEquipment(c.CategoryId, (int)ViewModel.EquipmentId)));
+                await db.AddCategoryToEquipment(0, (int)ViewModel.EquipmentId);
+                await db.AddCategoryToEquipment(1, (int)ViewModel.EquipmentId);
+                await db.AddCategoryToEquipment(2, (int)ViewModel.EquipmentId);
+                await db.AddCategoryToEquipment(3, (int)ViewModel.EquipmentId);
+                await db.AddCategoryToEquipment(4, (int)ViewModel.EquipmentId);
 
                 // FIXME: Add shops
 
@@ -152,6 +159,7 @@ namespace InventoryTrackerFrontend
                 this.busyIndicator.IsBusy = false;
 
                 this.NavigationService.GoBack();
+
                 // FIXME: Refresh data
 
                 if (ViewModel.IsNew)

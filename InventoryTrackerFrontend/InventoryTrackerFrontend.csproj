@@ -103,6 +103,7 @@
     <Compile Include="Models\EquipmentChange.cs" />
     <Compile Include="Models\EquipmentPrices.cs" />
     <Compile Include="Models\Shop.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\EditEquipmentFormViewModel.cs" />

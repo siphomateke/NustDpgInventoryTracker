@@ -36,8 +36,8 @@
                             <TextBlock Text="New equipment"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="ViewDetailsButton" Content="View details" Margin="5" Padding="15,0" Click="ViewDetailsButton_Click"></Button>
-                    <Button x:Name="EditButton" Content="Edit" Margin="5" Padding="15,0" Click="EditButton_Click"></Button>
+                    <Button x:Name="ViewDetailsButton" Content="View details" Margin="5" Padding="15,0" Click="ViewDetailsButton_Click" IsEnabled="{Binding AnyEquipmentSelected}"></Button>
+                    <Button x:Name="EditButton" Content="Edit" Margin="5" Padding="15,0" Click="EditButton_Click" IsEnabled="{Binding AnyEquipmentSelected}"></Button>
                     <Button x:Name="RefreshButton" ToolTip="Refresh" Margin="5" Padding="15,5" Click="RefreshButton_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="Refresh" Margin="0,0,8,0" Width="12" />
@@ -60,8 +60,9 @@
                 <TextBlock FontWeight="Bold" FontSize="24" Margin="0,0,0,16">Equipment changes</TextBlock>
                 <DataGrid ItemsSource="{Binding EquipmentChanges}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" SelectionChanged="EquipmentChangeDataGrid_SelectionChanged" AutoGenerateColumns="False" SelectionMode="Single">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="Approved?" Binding="{Binding Path=ChangeApproved}"/>
-                        <DataGridTextColumn Header="Approved by" Binding="{Binding Path=ChangeApprovedByUserName}"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Path=ChangeDate}"/>
+                        <DataGridCheckBoxColumn Header="Approved" Binding="{Binding Path=ChangeApproved}"/>
+                        <DataGridTextColumn Header="Approved by" Binding="{Binding Path=ChangeD}"/>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                         <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>
                         <DataGridTextColumn Header="Location" Binding="{Binding Path=LocationInHome}"/>
@@ -76,6 +77,12 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Orientation="Horizontal">
+                    <Button x:Name="ApproveChangeButton" Margin="5" Padding="15,5" IsEnabled="{Binding AnyEquipmentChangeSelected}" Click="ApproveChangeButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Check" Margin="0,0,8,0" Width="12" />
+                            <TextBlock Text="Approve change"/>
+                        </StackPanel>
+                    </Button>
                     <Button x:Name="DiscardChangeButton" Margin="5" Padding="15,5" IsEnabled="{Binding AnyEquipmentChangeSelected}" Click="DiscardChangeButton_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="Trash" Margin="0,0,8,0" Width="12" />

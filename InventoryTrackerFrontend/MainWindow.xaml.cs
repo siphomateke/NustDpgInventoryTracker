@@ -28,18 +28,18 @@ namespace InventoryTrackerFrontend
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //_mainFrame.Navigate(new WelcomePage());
+            _mainFrame.Navigate(new WelcomePage());
 
-            this.busyIndicator.IsBusy = true;
-            try
-            {
-                await UserManager.Login("lisentu", "critical");
-                _mainFrame.Navigate(new HomePage());
-            }
-            finally
-            {
-                this.busyIndicator.IsBusy = false;
-            }
+            //this.busyIndicator.IsBusy = true;
+            //try
+            //{
+            //    // await UserManager.Login("lisentu", "critical");
+            //    _mainFrame.Navigate(new HomePage());
+            //}
+            //finally
+            //{
+            //    this.busyIndicator.IsBusy = false;
+            //}
         }
     }
 }

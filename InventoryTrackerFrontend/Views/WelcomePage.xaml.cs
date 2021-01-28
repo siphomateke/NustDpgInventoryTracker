@@ -23,6 +23,14 @@ namespace InventoryTrackerFrontend.Views
         public WelcomePage()
         {
             InitializeComponent();
+            RefreshButtons();
+        }
+
+        private void RefreshButtons()
+        {
+            LoginButton.IsEnabled = !UserManager.LoggedIn;
+            RegisterButton.IsEnabled = !UserManager.LoggedIn;
+            LogoutButton.IsEnabled = UserManager.LoggedIn;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -32,14 +40,31 @@ namespace InventoryTrackerFrontend.Views
 
             if (UserManager.LoggedIn)
             {
-                NavigationService.Navigate(new EditEquipmentForm());
+                NavigationService.Navigate(new HomePage());
             }
+            RefreshButtons();
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            RegisterWindow win = new RegisterWindow();
-            win.ShowDialog();
+            if (!UserManager.LoggedIn)
+            {
+                MessageBox.Show("Only the owner can add new users. You have been redirected to the login form.");
+                LoginWindow win = new LoginWindow();
+                win.ShowDialog();
+            }
+            if (UserManager.LoggedIn)
+            {
+                RegisterWindow win = new RegisterWindow();
+                win.ShowDialog();
+            }
+            RefreshButtons();
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserManager.Logout();
+            RefreshButtons();
         }
     }
 }

@@ -17,7 +17,9 @@ AS
 	END
 	ELSE
 	BEGIN
-		-- Also show all newly requested equipment from this user
+		-- Show only newly requested equipment from this user
 		INSERT INTO @EquipmentToBuy
 		EXEC spNewEquipment_List @UserId, 1;
 	END
+
+	SELECT * FROM @EquipmentToBuy;

@@ -11,6 +11,7 @@ namespace InventoryTrackerFrontend.ViewModels
     public class HomePageViewModel : BaseViewModel
     {
         public int SelectedEquipmentId { get; set; }
+        public bool AnyEquipmentSelected { get; set; }
         public List<Equipment> Equipment { get; set; }
         public List<EquipmentChange> EquipmentChanges { get; set; }
         public List<BasicEquipment> EquipmentToBuy { get; set; }

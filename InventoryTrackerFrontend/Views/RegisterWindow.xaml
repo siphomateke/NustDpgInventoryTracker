@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InventoryTrackerFrontend.Views"
+        xmlns:local="clr-namespace:InventoryTrackerFrontend.Views" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="User registration" Height="240.995" Width="396.919">
+        Title="User registration" Height="260.729" Width="396.919">
     <Grid>
         <StackPanel x:Name="_mainForm" Orientation="Vertical" Margin="10">
             <StackPanel Orientation="Horizontal">
@@ -14,7 +14,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150">Password</Label>
-                <PasswordBox Width="200" VerticalAlignment="Center" />
+                <PasswordBox x:Name="passwordBox" Width="200" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150">First name</Label>
@@ -28,7 +28,13 @@
                 <Label Width="150">Email</Label>
                 <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Email}" />
             </StackPanel>
-            <Button Margin="0,20,0,0" Padding="5">Register</Button>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Role</Label>
+                <ComboBox x:Name="rolesComboBox" Width="200" VerticalAlignment="Center" SelectedIndex="2" DisplayMemberPath="Name" SelectedValuePath="RoleId" />
+            </StackPanel>
+            <Button Margin="0,20,0,0" Padding="5" x:Name="RegisterButton" Click="RegisterButton_Click" IsDefault="True">Register</Button>
         </StackPanel>
+
+        <xctk:BusyIndicator x:Name="busyIndicator"  BusyContent="Loading..." />
     </Grid>
 </Window>

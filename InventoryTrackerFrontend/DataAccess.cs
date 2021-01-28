@@ -34,6 +34,32 @@ namespace InventoryTrackerFrontend
             }
         }
 
+        public async Task<User> RegisterUser(User user)
+        {
+            using (var con = connect())
+            {
+                var p = new DynamicParameters(new
+                {
+                    AdminUserId = UserManager.LoggedInUser.UserId,
+                    Username = user.Username,
+                    Password = user.Password,
+                    RoleId = user.RoleId,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email
+                });
+                return (await con.QueryAsync<User>("dbo.spUser_Register", p, commandType: CommandType.StoredProcedure)).ToList().FirstOrDefault();
+            }
+        }
+
+        public async Task<List<UserRole>> GetUserRoles()
+        {
+            using (var con = connect())
+            {
+                return (await con.QueryAsync<UserRole>("SELECT * FROM v_UserRoles")).ToList();
+            }
+        }
+
         public async Task<List<EquipmentCondition>> GetEquipmentConditions()
         {
             using (var con = connect())
@@ -61,7 +87,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<Shop>("dbo.v_Shop")).ToList();
+                return (await con.QueryAsync<Shop>("SELECT * FROM dbo.v_Shop")).ToList();
             }
         }
 
@@ -186,6 +212,19 @@ namespace InventoryTrackerFrontend
             using (var con = connect())
             {
                 await con.ExecuteAsync("dbo.spEquipment_UndoChange", new { UserId = UserManager.LoggedInUser.UserId, EquipmentChangeId = equipmentChangeId }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task ApproveEquipmentChange(int equipmentChangeId)
+        {
+            using (var con = connect())
+            {
+                await con.ExecuteAsync("dbo.spEquipmentChange_SetApproval", new
+                {
+                    UserId = UserManager.LoggedInUser.UserId,
+                    EquipmentChangeId = equipmentChangeId,
+                    Approved = 1
+                }, commandType: CommandType.StoredProcedure);
             }
         }
         public async Task<List<EquipmentCategory>> GetCategories()

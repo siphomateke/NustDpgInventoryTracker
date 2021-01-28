@@ -60,6 +60,10 @@ namespace InventoryTrackerFrontend
             {
                 Equipment selectedEquipment = (Equipment)e.AddedItems[0];
                 ViewModel.SelectedEquipmentId = selectedEquipment.EquipmentId;
+                ViewModel.AnyEquipmentSelected = true;
+            } else
+            {
+                ViewModel.AnyEquipmentSelected = false;
             }
         }
 
@@ -109,6 +113,25 @@ namespace InventoryTrackerFrontend
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new EditEquipmentForm());
+        }
+
+        private async void ApproveChangeButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                busyIndicator.IsBusy = true;
+                DataAccess db = new DataAccess();
+                await db.ApproveEquipmentChange(ViewModel.SelectedEquipmentChangeId);
+                RefreshEquipment();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                busyIndicator.IsBusy = false;
+            }
         }
     }
 }

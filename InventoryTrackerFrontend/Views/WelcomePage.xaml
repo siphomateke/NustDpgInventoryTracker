@@ -5,12 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InventoryTrackerFrontend.Views"
       mc:Ignorable="d"
-      Title="WelcomePage" Height="393.2" Width="500">
+      Title="WelcomePage" Height="374.8" Width="500">
 
     <StackPanel Margin="30">
         <TextBlock FontSize="30" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,0,0,50">Inventory Tracker</TextBlock>
         <TextBlock HorizontalAlignment="Center">Welcome to the inventory tracker. To get started, please login.</TextBlock>
-        <Button x:Name="LoginButton" Padding="20" FontSize="20" Margin="10" Click="LoginButton_Click">Login</Button>
-        <Button x:Name="RegisterButton"  Padding="20" FontSize="20" Margin="10" Click="RegisterButton_Click">Register</Button>
+        <Button x:Name="LoginButton" Padding="10" FontSize="20" Margin="10" Click="LoginButton_Click">Login</Button>
+        <Button x:Name="RegisterButton"  Padding="10" FontSize="20" Margin="10" Click="RegisterButton_Click">Register</Button>
+        <Button x:Name="LogoutButton" IsEnabled="False" Padding="10" FontSize="20" Margin="10" Click="LogoutButton_Click">Logout</Button>
     </StackPanel>
 </Page>

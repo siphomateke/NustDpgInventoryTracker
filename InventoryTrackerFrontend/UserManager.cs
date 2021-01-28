@@ -27,8 +27,6 @@ namespace InventoryTrackerFrontend
         {
             LoggedInUser = null;
             LoggedIn = false;
-            LoginWindow win = new LoginWindow();
-            win.Show();
         }
     }
 }

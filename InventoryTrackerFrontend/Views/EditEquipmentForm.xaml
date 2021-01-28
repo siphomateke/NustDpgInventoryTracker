@@ -24,9 +24,9 @@
                 <Label Width="150" Content="Name"/>
                 <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Equipment.Name}" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <!--<StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Categories"/>
-                <xctk:CheckComboBox
+                <xctk:CheckCoboBox
                     x:Name="CategoryComboBox"
                     VerticalAlignment="Center" 
                     DisplayMemberPath="Name"
@@ -35,8 +35,7 @@
                     SelectedMemberPath="Name"
                     SelectedItemsOverride="{Binding Equipment.Categories}"/>
                 <Button x:Name="AddCategoryButton" Margin="5,0,0,0" VerticalAlignment="Center" Content="New category" Click="AddCategoryButton_Click"/>
-                <!--<ComboBox VerticalAlignment="Center" ItemsSource="{Binding Categories}" DisplayMemberPath="Name" SelectedValuePath="CategoryId" SelectedIndex="0" />-->
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Description"/>
                 <TextBox Width="200" Height="65" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding Equipment.Description}"/>
@@ -80,7 +79,7 @@
                 <uc:FilePicker VerticalAlignment="Center"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="0,20,0,0">
-                <Label FontWeight="Bold">Shops where equipment can be found</Label>
+                <Label FontWeight="Bold">Shops</Label>
                 <DataGrid x:Name="ShopDataGrid" ItemsSource="{Binding Equipment.Shops}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" />

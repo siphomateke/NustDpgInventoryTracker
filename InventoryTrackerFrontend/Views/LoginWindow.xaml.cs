@@ -50,10 +50,12 @@ namespace InventoryTrackerFrontend
                 if (loginSuccess)
                 {
                     MessageBox.Show($"Successfully logged in as {loggedInUser.FirstName} {loggedInUser.LastName} ({loggedInUser.Username})", "Login successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.DialogResult = true;
                     this.Hide();
                 }
                 else
                 {
+                    this.DialogResult = false;
                     MessageBox.Show("Invalid username or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     passwordBox.Clear();
                 }
