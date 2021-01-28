@@ -8,9 +8,12 @@
     Title="Inventory Tracker" Height="450" Width="800" Loaded="Window_Loaded"
     SizeToContent="WidthAndHeight" 
     MaxWidth="1200"
+    MaxHeight="720"
     >
     <Grid>
-        <Frame x:Name="_mainFrame"></Frame>
+        <ScrollViewer>
+            <Frame x:Name="_mainFrame"></Frame>
+        </ScrollViewer>
         <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="False" BusyContent="Loading..." />
     </Grid>
 </Window>
