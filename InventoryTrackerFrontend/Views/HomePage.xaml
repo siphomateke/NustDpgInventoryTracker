@@ -9,6 +9,6 @@
       Title="HomePage">
 
     <Grid>
-        <Frame Source="./ViewEquipmentPage.xaml"></Frame>
+        <Frame Source="./ViewEquipmentPage.xaml"/>
     </Grid>
 </Page>

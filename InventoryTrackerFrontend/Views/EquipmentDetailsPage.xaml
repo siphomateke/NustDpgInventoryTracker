@@ -20,6 +20,10 @@
                     <TextBlock Width="200" Height="65" TextWrapping="Wrap" Text="{Binding Description}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
+                    <Label Width="150" FontWeight="Bold">Categories</Label>
+                    <TextBlock Width="200" VerticalAlignment="Center" Text="{Binding CategoryString}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
                     <Label Width="150" FontWeight="Bold">Quantity</Label>
                     <TextBlock VerticalAlignment="Center" Text="{Binding Quantity}" />
                 </StackPanel>
@@ -46,6 +50,8 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Width="150" FontWeight="Bold">Receipt image</Label>
                     <TextBlock VerticalAlignment="Center" Text="{Binding ReceiptImage}"/>
+                    <Image Source="{Binding ReceiptImage}"/>
+                    <!-- TODO: Allow viewing images -->
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Width="150" FontWeight="Bold">Warranty expiry date</Label>
@@ -54,6 +60,8 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Width="150" FontWeight="Bold">Warranty image</Label>
                     <TextBlock VerticalAlignment="Center" Text="{Binding WarrantyImage}"/>
+                    <Image Source="{Binding WarrantyImage}"/>
+                    <!-- TODO: Allow viewing images -->
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Width="150" FontWeight="Bold">Purchase price</Label>
@@ -61,7 +69,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Width="150" FontWeight="Bold">Bought at</Label>
-                    <Button Padding="10,0">
+                    <Button x:Name="ViewShopButton" Padding="10,0" Click="ViewShopButton_Click">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding ShopDetails}" VerticalAlignment="Center"/>
                             <fa:ImageAwesome Icon="ExternalLink" Margin="8,0,0,0" Width="16" />
@@ -90,6 +98,9 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
+                <!--<StackPanel Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Padding="20,5" Margin="5">Edit</Button>
+                </StackPanel>-->
             </StackPanel>
         </StackPanel>
         <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="False" BusyContent="Loading equipment details..." />

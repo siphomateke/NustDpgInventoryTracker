@@ -1,4 +1,5 @@
 ﻿using InventoryTrackerFrontend.Models;
+using InventoryTrackerFrontend.ViewModels;
 using InventoryTrackerFrontend.Views;
 using System;
 using System.Collections.Generic;
@@ -22,13 +23,13 @@ namespace InventoryTrackerFrontend
     /// </summary>
     public partial class ViewEquipmentPage : Page
     {
-        List<Equipment> equipment = new List<Equipment>();
-
-        public int SelectedEquipmentId { get; set; }
+        public HomePageViewModel ViewModel { get; set; }
 
         public ViewEquipmentPage()
         {
             InitializeComponent();
+            ViewModel = new HomePageViewModel();
+            this.DataContext = ViewModel;
             RefreshEquipment();
         }
 
@@ -36,19 +37,19 @@ namespace InventoryTrackerFrontend
         {
             try
             {
-                this.busyIndicator.IsBusy = true;
+                busyIndicator.IsBusy = true;
                 DataAccess db = new DataAccess();
-                equipment = await db.GetEquipment();
-
-                equipmentDataGrid.ItemsSource = equipment;
+                ViewModel.Equipment = await db.GetEquipment();
+                ViewModel.EquipmentChanges = await db.GetEquipmentChanges();
+                ViewModel.EquipmentToBuy = await db.GetAllEquipmentToBuy();
             }
             finally
             {
-                this.busyIndicator.IsBusy = false;
+                busyIndicator.IsBusy = false;
             }
         }
 
-        private void refreshButton_Click(object sender, RoutedEventArgs e)
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             RefreshEquipment();
         }
@@ -58,18 +59,56 @@ namespace InventoryTrackerFrontend
             if (e.AddedItems.Count > 0)
             {
                 Equipment selectedEquipment = (Equipment)e.AddedItems[0];
-                SelectedEquipmentId = selectedEquipment.EquipmentId;
+                ViewModel.SelectedEquipmentId = selectedEquipment.EquipmentId;
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void ViewDetailsButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new EquipmentDetailsPage(SelectedEquipmentId));
+            NavigationService.Navigate(new EquipmentDetailsPage(ViewModel.SelectedEquipmentId));
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new EditEquipmentForm(ViewModel.SelectedEquipmentId));
+        }
+
+        private void EquipmentChangeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                EquipmentChange selectedEquipmentChange = (EquipmentChange)e.AddedItems[0];
+                ViewModel.SelectedEquipmentChangeId = selectedEquipmentChange.EquipmentChangeId;
+                ViewModel.AnyEquipmentChangeSelected = true;
+            }
+            else
+            {
+                ViewModel.AnyEquipmentChangeSelected = false;
+            }
+        }
+
+        private async void DiscardChangeButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                busyIndicator.IsBusy = true;
+                DataAccess db = new DataAccess();
+                await db.UndoEquipmentChange(ViewModel.SelectedEquipmentChangeId);
+                RefreshEquipment();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                busyIndicator.IsBusy = false;
+            }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new EditEquipmentForm());
         }
     }
 }

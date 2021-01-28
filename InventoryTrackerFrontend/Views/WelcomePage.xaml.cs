@@ -32,7 +32,7 @@ namespace InventoryTrackerFrontend.Views
 
             if (UserManager.LoggedIn)
             {
-                NavigationService.Navigate(new AddEquipmentForm());
+                NavigationService.Navigate(new EditEquipmentForm());
             }
         }
 

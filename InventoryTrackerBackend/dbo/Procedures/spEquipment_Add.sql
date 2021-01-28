@@ -25,7 +25,7 @@ AS
     VALUES 
         (@Name, @Description, @Quantity, @LocationInHome, @Lost, @ConditionId, @Age, @DateOfPurchase, @ReceiptImage, @WarrantyExpiryDate, @WarrantyImage);
 
-    SET @EquipmentId = IDENT_CURRENT('Category');
+    SET @EquipmentId = IDENT_CURRENT('Equipment');
     -- Add a single row for price information. 
     -- If more information about shop prices is known, they should be added later
-    EXEC spEquipmentPricing_Set @ShopId, @EquipmentId, @EquipmentPrice, @DatePriceChecked, @IsOriginalPurchase;
+    EXEC spEquipmentPricing_Set @EquipmentId, @ShopId, @EquipmentPrice, @DatePriceChecked, @IsOriginalPurchase;

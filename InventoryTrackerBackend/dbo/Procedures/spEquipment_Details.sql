@@ -22,7 +22,8 @@ AS
 			Price, 
 			Shop, 
 			ShopTown, 
-			ShopCountry 
+			ShopCountry,
+			ShopId
 		FROM v_EquipmentDetails
 		WHERE EquipmentId = @EquipmentId
 	ELSE

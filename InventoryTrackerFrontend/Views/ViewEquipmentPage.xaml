@@ -12,13 +12,77 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20">
-            <DataGrid x:Name="equipmentDataGrid" MaxWidth="800" Height="275" IsReadOnly="True" SelectionChanged="equipmentDataGrid_SelectionChanged"/>
-            <StackPanel Orientation="Horizontal" Margin="0,20">
-                <Button x:Name="ViewDetailsButton" Margin="5" Content="View details" Padding="15,0" Click="ViewDetailsButton_Click"></Button>
-                <Button Margin="5" Content="Edit" Padding="15,0"></Button>
-                <Button Margin="5" Width="32" x:Name="refreshButton" ToolTip="Refresh" Padding="5" Click="refreshButton_Click">
-                    <fa:ImageAwesome Icon="Refresh" />
-                </Button>
+            <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+                <TextBlock FontWeight="Bold" FontSize="24" Margin="0,0,0,16">All equipment</TextBlock>
+                <DataGrid ItemsSource="{Binding Equipment}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" SelectionChanged="equipmentDataGrid_SelectionChanged" AutoGenerateColumns="False" SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>
+                        <DataGridTextColumn Header="Location" Binding="{Binding Path=LocationInHome}"/>
+                        <DataGridTextColumn Header="Condition" Binding="{Binding Path=Condition}"/>
+                        <DataGridTextColumn Header="Age" Binding="{Binding Path=Age}"/>
+                        <DataGridCheckBoxColumn Header="Lost?" Binding="{Binding Path=Lost}"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}"/>
+                        <DataGridTextColumn Header="Date bought" Binding="{Binding Path=DateOfPurchase}"/>
+                        <DataGridTextColumn Header="Warranty expiry" Binding="{Binding Path=WarrantyExpiryDate}"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Path=PriceWithCurrency}"/>
+                        <DataGridTextColumn Header="Shop" Binding="{Binding Path=ShopDetails}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Horizontal" Margin="0,20">
+                    <Button x:Name="AddButton" ToolTip="Refresh" Margin="5" Padding="15,5" Click="AddButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Plus" Margin="0,0,8,0" Width="12" />
+                            <TextBlock Text="New equipment"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="ViewDetailsButton" Content="View details" Margin="5" Padding="15,0" Click="ViewDetailsButton_Click"></Button>
+                    <Button x:Name="EditButton" Content="Edit" Margin="5" Padding="15,0" Click="EditButton_Click"></Button>
+                    <Button x:Name="RefreshButton" ToolTip="Refresh" Margin="5" Padding="15,5" Click="RefreshButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Refresh" Margin="0,0,8,0" Width="12" />
+                            <TextBlock Text="Refresh"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+                <TextBlock FontWeight="Bold" FontSize="24" Margin="0,0,0,16">Equipment to buy</TextBlock>
+                <DataGrid ItemsSource="{Binding EquipmentToBuy}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+                <TextBlock FontWeight="Bold" FontSize="24" Margin="0,0,0,16">Equipment changes</TextBlock>
+                <DataGrid ItemsSource="{Binding EquipmentChanges}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" SelectionChanged="EquipmentChangeDataGrid_SelectionChanged" AutoGenerateColumns="False" SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="Approved?" Binding="{Binding Path=ChangeApproved}"/>
+                        <DataGridTextColumn Header="Approved by" Binding="{Binding Path=ChangeApprovedByUserName}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>
+                        <DataGridTextColumn Header="Location" Binding="{Binding Path=LocationInHome}"/>
+                        <DataGridTextColumn Header="Condition" Binding="{Binding Path=Condition}"/>
+                        <DataGridTextColumn Header="Age" Binding="{Binding Path=Age}"/>
+                        <DataGridCheckBoxColumn Header="Lost?" Binding="{Binding Path=Lost}"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}"/>
+                        <DataGridTextColumn Header="Date bought" Binding="{Binding Path=DateOfPurchase}"/>
+                        <DataGridTextColumn Header="Warranty expiry" Binding="{Binding Path=WarrantyExpiryDate}"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Path=PriceWithCurrency}"/>
+                        <DataGridTextColumn Header="Shop" Binding="{Binding Path=ShopDetails}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="DiscardChangeButton" Margin="5" Padding="15,5" IsEnabled="{Binding AnyEquipmentChangeSelected}" Click="DiscardChangeButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Trash" Margin="0,0,8,0" Width="12" />
+                            <TextBlock Text="Discard change"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
         <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="False" BusyContent="Refreshing equipment..." />

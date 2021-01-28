@@ -17,17 +17,16 @@ using System.Windows.Shapes;
 namespace InventoryTrackerFrontend.Views
 {
     /// <summary>
-    /// Interaction logic for EquipmentDetailsPage.xaml
+    /// Interaction logic for ShopDetailsPage.xaml
     /// </summary>
-    public partial class EquipmentDetailsPage : Page
+    public partial class ShopDetailsPage : Page
     {
-        public int EquipmentId { get; set; }
-        public Equipment Equipment { get; set; }
-
-        public EquipmentDetailsPage(int equipmentId)
+        public int ShopId { get; set; }
+        public Shop Shop { get; set; }
+        public ShopDetailsPage(int shopId)
         {
             InitializeComponent();
-            this.EquipmentId = equipmentId;
+            this.ShopId = shopId;
             LoadDetails();
         }
 
@@ -37,25 +36,20 @@ namespace InventoryTrackerFrontend.Views
             try
             {
                 DataAccess db = new DataAccess();
-                this.Equipment = await db.GetEquipmentDetails(EquipmentId);
-                if (this.Equipment != null)
+                this.Shop = await db.GetShopDetails(ShopId);
+                if (this.Shop != null)
                 {
-                    this._equipmentDetailsWrapper.DataContext = this.Equipment;
+                    this._mainWrapper.DataContext = this.Shop;
                 }
                 else
                 {
-                    MessageBox.Show("Failed to find equipment details. The equipment might have been deleted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Failed to find shop details. The shop might have been deleted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             finally
             {
                 this.busyIndicator.IsBusy = false;
             }
-        }
-
-        private void ViewShopButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new ShopDetailsPage(Equipment.ShopId));
         }
     }
 }

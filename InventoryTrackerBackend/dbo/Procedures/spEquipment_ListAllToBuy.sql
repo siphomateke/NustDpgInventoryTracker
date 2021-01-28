@@ -10,10 +10,14 @@ AS
 	SELECT Name, Description, Quantity FROM v_EquipmentToBuy;
 
 	IF @CanApprove = 1
+	BEGIN
 		-- Also show all newly requested equipment from all users
 		INSERT INTO @EquipmentToBuy
 		EXEC spNewEquipment_List @UserId, 0;
+	END
 	ELSE
+	BEGIN
 		-- Also show all newly requested equipment from this user
 		INSERT INTO @EquipmentToBuy
 		EXEC spNewEquipment_List @UserId, 1;
+	END

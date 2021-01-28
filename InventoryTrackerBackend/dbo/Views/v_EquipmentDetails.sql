@@ -1,5 +1,25 @@
 ﻿CREATE VIEW [dbo].[v_EquipmentDetails]
-	AS SELECT Equipment.*, EquipmentPricing.EquipmentPrice as Price, Shop.Name as Shop, Shop.Town as ShopTown, Shop.Country as ShopCountry, EquipmentCondition.Name AS Condition, UserId FROM Equipment
+	AS SELECT 
+		[Equipment].[EquipmentId], 
+		[Equipment].[Name], 
+		[Equipment].[Description], 
+		[Equipment].[Quantity], 
+		[Equipment].[LocationInHome],
+		[Equipment].[Lost],
+		[Equipment].[ConditionId],
+		[Equipment].[Age], 
+		[Equipment].[DateOfPurchase], 
+		[Equipment].[ReceiptImage],
+		[Equipment].[WarrantyExpiryDate],
+		[Equipment].[WarrantyImage],
+		EquipmentPricing.EquipmentPrice as Price, 
+		Shop.ShopId,
+		Shop.Name as Shop, 
+		Shop.Town as ShopTown, 
+		Shop.Country as ShopCountry,
+		EquipmentCondition.Name as Condition,
+		UserId
+	FROM Equipment
 		INNER JOIN EquipmentCategory 
 		ON (Equipment.EquipmentId = EquipmentCategory.EquipmentId)
 		INNER JOIN UserViewableCategory

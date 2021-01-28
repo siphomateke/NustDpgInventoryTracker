@@ -16,11 +16,13 @@ BEGIN
 	EXEC spUser_HasPermission @ChangedByUserId, 'CAN_MAKE_CHANGES', @CanDirectlyChange OUTPUT;
 	DECLARE @CanApprove BIT;
 	EXEC spUser_HasPermission @ChangedByUserId, 'CAN_APPROVE_CHANGES', @CanApprove OUTPUT;
+	PRINT(CONCAT('Change requested. User can direct change: ', @CanDirectlyChange, ', User can approve: ', @CanApprove));
 	IF @CanDirectlyChange = 1 AND @CanApprove = 1 BEGIN
 		DECLARE @EquipmentChangeId INT;
 		SELECT @EquipmentChangeId = EquipmentChangeId FROM inserted
 
 		-- Immediately set equipment change as approved
+		PRINT('Automatically approved changes');
 		EXEC spEquipmentChange_SetApproval 
 			@UserId = @ChangedByUserId, 
 			@EquipmentChangeId = @EquipmentChangeId,

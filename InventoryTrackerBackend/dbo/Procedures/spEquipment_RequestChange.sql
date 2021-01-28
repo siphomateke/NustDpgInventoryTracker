@@ -20,6 +20,7 @@ AS
         DECLARE @CanEdit BIT;
         EXEC spUser_EnsureCanEditEquipment @UserId, @EquipmentId, @CanEdit OUTPUT;
         IF @CanEdit = 1
+        BEGIN
             INSERT INTO EquipmentChange
                 (
                     EquipmentId,
@@ -59,4 +60,9 @@ AS
                     @WarrantyImage
                 );
             SET @EquipmentChangeId = IDENT_CURRENT('EquipmentChange');
+        END
+        ELSE
+        BEGIN
+            RAISERROR('User does not have permission to edit this equipment', 16, 1);
+        END
     COMMIT;

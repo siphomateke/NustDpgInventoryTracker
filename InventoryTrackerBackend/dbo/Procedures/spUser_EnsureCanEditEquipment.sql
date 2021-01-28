@@ -9,11 +9,11 @@ AS
     EXEC spUser_CanViewEquipment @UserId, @EquipmentId, @CanView OUTPUT;
 
     IF @CanEditAny = 0 OR @CanView = 0
-        SET @CanEdit = 1;
+        SET @CanEdit = 0;
 
         IF @CanEditAny = 0
             RAISERROR('User does not have permission to edit equipment.', 16, 1);
         IF @CanView = 0
             RAISERROR('User does not have permission to edit this equipment.', 16, 1);
     ELSE
-        SET @CanEdit = 0
+        SET @CanEdit = 1

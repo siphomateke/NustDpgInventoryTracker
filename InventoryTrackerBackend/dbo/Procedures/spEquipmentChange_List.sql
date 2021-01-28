@@ -1,5 +1,4 @@
-﻿-- Get list of all equipment a user can view
-CREATE PROCEDURE [dbo].[spEquipment_List]
+﻿CREATE PROCEDURE [dbo].[spEquipmentChange_List]
 	@UserId INT
 AS
 	DECLARE @CanViewAny BIT;
@@ -7,7 +6,14 @@ AS
 
 	IF @CanViewAny = 1
 		SELECT 
-			[EquipmentId],
+			[EquipmentChangeId], 
+			[ChangedByUserId],
+			ChangedByUserUsername,
+			[ChangeApprovedByUserId], 
+			ChangedApprovedByUsername,
+			[ChangeApproved], 
+			[ChangeDate], 
+			[EquipmentId], 
 			[Name], 
 			[Description], 
 			[Quantity], 
@@ -24,7 +30,7 @@ AS
 			ShopTown, 
 			ShopCountry,
 			ShopId
-		FROM v_EquipmentDetails
-		WHERE UserId = @UserId;
+		FROM v_EquipmentChangeDetails
+		WHERE UserId = @UserId AND ChangedByUserId = @UserId;
 	ELSE
 		RAISERROR('User does not have permission to view equipment', 16, 1);
