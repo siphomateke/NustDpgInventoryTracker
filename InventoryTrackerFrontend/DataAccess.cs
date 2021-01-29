@@ -1,4 +1,4 @@
-using Dapper;
+﻿using Dapper;
 using InventoryTrackerFrontend.Models;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<User>("dbo.spUser_Login @Username, @Password", new { Username = username, Password = password })).ToList().FirstOrDefault();
+                return (await con.QueryAsync<User>("dbo.spUser_Login", new { Username = username, Password = password }, commandType: CommandType.StoredProcedure)).ToList().FirstOrDefault();
             }
         }
 
@@ -71,7 +71,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<Equipment>("dbo.spEquipment_List @UserId", new { UserId = UserManager.LoggedInUser.UserId })).ToList();
+                return (await con.QueryAsync<Equipment>("dbo.spEquipment_List", new { UserId = UserManager.LoggedInUser.UserId }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -79,7 +79,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<Shop>("dbo.spEquipment_AvailableShops @UserId, @EquipmentId", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId })).ToList();
+                return (await con.QueryAsync<Shop>("dbo.spEquipment_AvailableShops", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -96,10 +96,11 @@ namespace InventoryTrackerFrontend
             using (var con = connect())
             {
                 return (await con.QueryAsync<EquipmentPrices, Shop, EquipmentPrices>(
-                            sql: "dbo.spEquipment_GetPrices @UserId, @EquipmentId",
+                            sql: "dbo.spEquipment_GetPrices",
                             map: (price, shop) => { price.Shop = shop; return price; },
                             param: new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId },
-                            splitOn: "ShopId"
+                            splitOn: "ShopId",
+                            commandType: CommandType.StoredProcedure
                         )).ToList();
             }
         }
@@ -108,7 +109,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<EquipmentCategory>("dbo.spEquipment_GetCategories @EquipmentId, @UserId", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId })).ToList();
+                return (await con.QueryAsync<EquipmentCategory>("dbo.spEquipment_GetCategories", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -116,7 +117,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                Equipment equipment = (await con.QueryAsync<Equipment>("dbo.spEquipment_Details @EquipmentId, @UserId", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId })).FirstOrDefault();
+                Equipment equipment = (await con.QueryAsync<Equipment>("dbo.spEquipment_Details", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).FirstOrDefault();
                 if (equipment != null)
                 {
                     equipment.Shops = await GetEquipmentAvailableShops(equipmentId);
@@ -139,7 +140,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<BasicEquipment>("dbo.spEquipment_ListAllToBuy @UserId", new { UserId = UserManager.LoggedInUser.UserId })).ToList();
+                return (await con.QueryAsync<BasicEquipment>("dbo.spEquipment_ListAllToBuy", new { UserId = UserManager.LoggedInUser.UserId }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -147,7 +148,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<Shop>("dbo.spShop_Details @ShopId", new { ShopId = shopId })).FirstOrDefault();
+                return (await con.QueryAsync<Shop>("dbo.spShop_Details", new { ShopId = shopId }, commandType: CommandType.StoredProcedure)).FirstOrDefault();
             }
         }
 
