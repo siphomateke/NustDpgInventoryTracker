@@ -17,5 +17,6 @@ namespace InventoryTrackerFrontend.ViewModels
         public List<BasicEquipment> EquipmentToBuy { get; set; }
         public bool AnyEquipmentChangeSelected { get; set; }
         public int SelectedEquipmentChangeId { get; set; }
+        public bool ShowOwnChangesOnly { get; set; }
     }
 }

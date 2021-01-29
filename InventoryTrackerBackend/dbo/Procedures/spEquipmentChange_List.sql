@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spEquipmentChange_List]
-	@UserId INT
+	@UserId INT,
+	@OwnOnly BIT = 1
 AS
 	DECLARE @CanViewAny BIT;
 	EXEC spUser_CanViewAnyEquipment @UserId, @CanViewAny OUTPUT;
@@ -30,7 +31,7 @@ AS
 			ShopTown, 
 			ShopCountry,
 			ShopId
-		FROM v_EquipmentChangeDetails
-		WHERE UserId = @UserId AND ChangedByUserId = @UserId;
+		FROM v_EquipmentChangeDetails as EquipmentChange
+		WHERE UserId = @UserId AND ((@OwnOnly = 1 AND ChangedByUserId = @UserId) OR @OwnOnly = 0);
 	ELSE
 		RAISERROR('User does not have permission to view equipment', 16, 1);

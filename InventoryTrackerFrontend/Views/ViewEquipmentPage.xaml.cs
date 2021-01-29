@@ -29,7 +29,7 @@ namespace InventoryTrackerFrontend
         {
             InitializeComponent();
             ViewModel = new HomePageViewModel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
             RefreshEquipment();
         }
 
@@ -40,7 +40,8 @@ namespace InventoryTrackerFrontend
                 busyIndicator.IsBusy = true;
                 DataAccess db = new DataAccess();
                 ViewModel.Equipment = await db.GetEquipment();
-                ViewModel.EquipmentChanges = await db.GetEquipmentChanges();
+                // FIXME: Refresh on ShowOwnChangesOnly value change
+                ViewModel.EquipmentChanges = await db.GetEquipmentChanges(ViewModel.ShowOwnChangesOnly);
                 ViewModel.EquipmentToBuy = await db.GetAllEquipmentToBuy();
             }
             finally
@@ -61,7 +62,8 @@ namespace InventoryTrackerFrontend
                 Equipment selectedEquipment = (Equipment)e.AddedItems[0];
                 ViewModel.SelectedEquipmentId = selectedEquipment.EquipmentId;
                 ViewModel.AnyEquipmentSelected = true;
-            } else
+            }
+            else
             {
                 ViewModel.AnyEquipmentSelected = false;
             }

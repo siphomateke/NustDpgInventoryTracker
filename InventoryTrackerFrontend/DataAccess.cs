@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using InventoryTrackerFrontend.Models;
 using System;
 using System.Collections.Generic;
@@ -127,11 +127,11 @@ namespace InventoryTrackerFrontend
             }
         }
 
-        public async Task<List<EquipmentChange>> GetEquipmentChanges()
+        public async Task<List<EquipmentChange>> GetEquipmentChanges(bool showOwnChangesOnly)
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<EquipmentChange>("dbo.spEquipmentChange_List @UserId", new { UserId = UserManager.LoggedInUser.UserId })).ToList();
+                return (await con.QueryAsync<EquipmentChange>("dbo.spEquipmentChange_List", new { UserId = UserManager.LoggedInUser.UserId, OwnOnly = showOwnChangesOnly }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
