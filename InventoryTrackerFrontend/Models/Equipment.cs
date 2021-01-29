@@ -18,7 +18,7 @@ namespace InventoryTrackerFrontend.Models
         public int Age { get; set; }
         public DateTime DateOfPurchase { get; set; }
         public string ReceiptImage { get; set; }
-        public string WarrantyExpiryDate { get; set; }
+        public DateTime WarrantyExpiryDate { get; set; }
         public string WarrantyImage { get; set; }
         public int ConditionId { get; set; }
         public string Condition { get; set; }
