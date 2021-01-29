@@ -96,13 +96,15 @@ IF NOT EXISTS(SELECT 1 FROM Permission WHERE Name = 'CAN_APPROVE_CHANGES')
             VALUES
                 ('Shovel', NULL, 5, 'Garden shed', 0, 3, 5, '2020/12/05', '/www/images/receipt-1238dan3n1li.jpg', '2025/11/04', '/www/images/warranty127x9a-242J.png'),
                 ('Hoe', 'Tool for digging', 5, 'Garden shed', 0, 5, 0, '2020/12/12', '/www/images/receipt-123asdml.jpg', '2025/12/04', '/www/images/warrantyasmkQWd242J.png'),
-                ('Spade', NULL, 1, 'Large kitchen cupboard', 1, 4, 730, NULL, NULL, NULL, NULL);
+                ('Spade', NULL, 1, 'Large kitchen cupboard', 1, 4, 730, NULL, NULL, NULL, NULL),
+                ('Windex', NULL, 5, 'Pantry', 0, 4, 300, NULL, NULL, NULL, NULL);
 
 
             INSERT INTO EquipmentCategory
                 (EquipmentId, CategoryId)
             VALUES
-                (0, 1);
+                (0, 1),
+                (0, 5);
 
             INSERT INTO NewEquipment
                 (AddedByUserId, Name, Description, Quantity, Approved, ApprovedByUserId)

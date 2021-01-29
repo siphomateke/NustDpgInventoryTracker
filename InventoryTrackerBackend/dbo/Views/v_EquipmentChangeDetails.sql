@@ -1,5 +1,5 @@
 ﻿CREATE VIEW [dbo].[v_EquipmentChangeDetails]
-	AS SELECT 
+	AS SELECT DISTINCT
 		[EquipmentChange].[EquipmentChangeId], 
 		[EquipmentChange].[ChangedByUserId],
 		ChangedByUser.Username as ChangedByUserUsername,
@@ -27,24 +27,25 @@
 		EquipmentCondition.Name as Condition,
 		UserViewableCategory.UserId as UserId
 	FROM EquipmentChange
-		INNER JOIN EquipmentCategory 
+		-- Include which users can view each equipment
+		LEFT JOIN EquipmentCategory 
 		ON (EquipmentChange.EquipmentId = EquipmentCategory.EquipmentId)
-		INNER JOIN UserViewableCategory
+		LEFT JOIN UserViewableCategory
 		ON (UserViewableCategory.CategoryId = EquipmentCategory.CategoryId)
 
 		-- Condition name
-		INNER JOIN EquipmentCondition
+		LEFT JOIN EquipmentCondition
 		ON (EquipmentCondition.ConditionId = EquipmentChange.ConditionId)
 
-		INNER JOIN AppUser as ChangedByUser
-		ON (ChangedByUser.UserId = EquipmentChange.ChangedByUserId)
-
-		INNER JOIN AppUser as ChangeApprovedByUser
-		ON (ChangeApprovedByUser.UserId = EquipmentChange.ChangeApprovedByUserId)
-
 		-- Pricing information when bought
-		INNER JOIN EquipmentPricing
+		LEFT JOIN 
+		(SELECT * FROM EquipmentPricing WHERE IsOriginalPurchase = 1) EquipmentPricing
 		ON (EquipmentChange.EquipmentId = EquipmentPricing.EquipmentId)
-		INNER JOIN v_Shop as Shop
+		LEFT JOIN v_Shop as Shop
 		ON (EquipmentPricing.ShopId = Shop.ShopId)
-		WHERE IsOriginalPurchase = 1;
+		
+		-- Uesr data
+		LEFT JOIN AppUser as ChangedByUser
+		ON (ChangedByUser.UserId = EquipmentChange.ChangedByUserId)
+		LEFT JOIN AppUser as ChangeApprovedByUser
+		ON (ChangeApprovedByUser.UserId = EquipmentChange.ChangeApprovedByUserId);
