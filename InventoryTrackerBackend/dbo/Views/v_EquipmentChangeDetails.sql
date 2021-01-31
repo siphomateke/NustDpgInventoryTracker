@@ -4,7 +4,7 @@
 		[EquipmentChange].[ChangedByUserId],
 		ChangedByUser.Username as ChangedByUserUsername,
 		[EquipmentChange].[ChangeApprovedByUserId], 
-		ChangedByUser.Username as ChangedApprovedByUsername,
+		ChangedByUser.Username as ChangeApprovedByUsername,
 		[EquipmentChange].[ChangeApproved], 
 		[EquipmentChange].[ChangeDate], 
 		[EquipmentChange].[EquipmentId], 

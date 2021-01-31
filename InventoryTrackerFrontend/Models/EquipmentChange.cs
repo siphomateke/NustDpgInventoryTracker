@@ -12,7 +12,7 @@ namespace InventoryTrackerFrontend.Models
         public int ChangedByUserId { get; set; }
         public string ChangedByUserUsername { get; set; }
         public int ChangeApprovedByUserId { get; set; }
-        public string ChangeApprovedByUserName { get; set; }
+        public string ChangeApprovedByUsername { get; set; }
         public bool ChangeApproved { get; set; }
         public DateTime ChangeDate { get; set; }
     }

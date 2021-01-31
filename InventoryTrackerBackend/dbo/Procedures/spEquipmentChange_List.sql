@@ -11,7 +11,7 @@ AS
 			[ChangedByUserId],
 			ChangedByUserUsername,
 			[ChangeApprovedByUserId], 
-			ChangedApprovedByUsername,
+			ChangeApprovedByUsername,
 			[ChangeApproved], 
 			[ChangeDate], 
 			[EquipmentId], 
