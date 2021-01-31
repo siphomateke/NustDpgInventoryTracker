@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace InventoryTrackerFrontend
+namespace InventoryTrackerFrontend.Common
 {
     class DataAccess
     {
@@ -41,12 +41,12 @@ namespace InventoryTrackerFrontend
                 var p = new DynamicParameters(new
                 {
                     AdminUserId = UserManager.LoggedInUser.UserId,
-                    Username = user.Username,
-                    Password = user.Password,
-                    RoleId = user.RoleId,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email
+                    user.Username,
+                    user.Password,
+                    user.RoleId,
+                    user.FirstName,
+                    user.LastName,
+                    user.Email
                 });
                 return (await con.QueryAsync<User>("dbo.spUser_Register", p, commandType: CommandType.StoredProcedure)).ToList().FirstOrDefault();
             }
@@ -71,7 +71,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<Equipment>("dbo.spEquipment_List", new { UserId = UserManager.LoggedInUser.UserId }, commandType: CommandType.StoredProcedure)).ToList();
+                return (await con.QueryAsync<Equipment>("dbo.spEquipment_List", new { UserManager.LoggedInUser.UserId }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -79,7 +79,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<Shop>("dbo.spEquipment_AvailableShops", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).ToList();
+                return (await con.QueryAsync<Shop>("dbo.spEquipment_AvailableShops", new { UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -98,7 +98,7 @@ namespace InventoryTrackerFrontend
                 return (await con.QueryAsync<EquipmentPrices, Shop, EquipmentPrices>(
                             sql: "dbo.spEquipment_GetPrices",
                             map: (price, shop) => { price.Shop = shop; return price; },
-                            param: new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId },
+                            param: new { UserManager.LoggedInUser.UserId, EquipmentId = equipmentId },
                             splitOn: "ShopId",
                             commandType: CommandType.StoredProcedure
                         )).ToList();
@@ -109,7 +109,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<EquipmentCategory>("dbo.spEquipment_GetCategories", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).ToList();
+                return (await con.QueryAsync<EquipmentCategory>("dbo.spEquipment_GetCategories", new { UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -117,7 +117,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                Equipment equipment = (await con.QueryAsync<Equipment>("dbo.spEquipment_Details", new { UserId = UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).FirstOrDefault();
+                Equipment equipment = (await con.QueryAsync<Equipment>("dbo.spEquipment_Details", new { UserManager.LoggedInUser.UserId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure)).FirstOrDefault();
                 if (equipment != null)
                 {
                     equipment.Shops = await GetEquipmentAvailableShops(equipmentId);
@@ -132,7 +132,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<EquipmentChange>("dbo.spEquipmentChange_List", new { UserId = UserManager.LoggedInUser.UserId, OwnOnly = showOwnChangesOnly }, commandType: CommandType.StoredProcedure)).ToList();
+                return (await con.QueryAsync<EquipmentChange>("dbo.spEquipmentChange_List", new { UserManager.LoggedInUser.UserId, OwnOnly = showOwnChangesOnly }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -140,7 +140,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                return (await con.QueryAsync<BasicEquipment>("dbo.spEquipment_ListAllToBuy", new { UserId = UserManager.LoggedInUser.UserId }, commandType: CommandType.StoredProcedure)).ToList();
+                return (await con.QueryAsync<BasicEquipment>("dbo.spEquipment_ListAllToBuy", new { UserManager.LoggedInUser.UserId }, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 
@@ -156,17 +156,17 @@ namespace InventoryTrackerFrontend
         {
             var p = new DynamicParameters(new
             {
-                Name = equipment.Name,
-                Description = equipment.Description,
-                Quantity = equipment.Quantity,
-                LocationInHome = equipment.LocationInHome,
-                Lost = equipment.Lost,
-                ConditionId = equipment.ConditionId,
-                Age = equipment.Age,
-                DateOfPurchase = equipment.DateOfPurchase,
-                ReceiptImage = equipment.ReceiptImage,
-                WarrantyExpiryDate = equipment.WarrantyExpiryDate,
-                WarrantyImage = equipment.WarrantyImage
+                equipment.Name,
+                equipment.Description,
+                equipment.Quantity,
+                equipment.LocationInHome,
+                equipment.Lost,
+                equipment.ConditionId,
+                equipment.Age,
+                equipment.DateOfPurchase,
+                equipment.ReceiptImage,
+                equipment.WarrantyExpiryDate,
+                equipment.WarrantyImage
                 //ShopId = (int?)null,
                 //EquipmentPrice = (int?)null,
                 //DatePriceChecked = (DateTime?)null,
@@ -185,19 +185,19 @@ namespace InventoryTrackerFrontend
         {
             var p = new DynamicParameters(new
             {
-                UserId = UserManager.LoggedInUser.UserId,
-                EquipmentId = equipment.EquipmentId,
-                Name = equipment.Name,
-                Description = equipment.Description,
-                Quantity = equipment.Quantity,
-                LocationInHome = equipment.LocationInHome,
-                Lost = equipment.Lost,
-                ConditionId = equipment.ConditionId,
-                Age = equipment.Age,
-                DateOfPurchase = equipment.DateOfPurchase,
-                ReceiptImage = equipment.ReceiptImage,
-                WarrantyExpiryDate = equipment.WarrantyExpiryDate,
-                WarrantyImage = equipment.WarrantyImage
+                UserManager.LoggedInUser.UserId,
+                equipment.EquipmentId,
+                equipment.Name,
+                equipment.Description,
+                equipment.Quantity,
+                equipment.LocationInHome,
+                equipment.Lost,
+                equipment.ConditionId,
+                equipment.Age,
+                equipment.DateOfPurchase,
+                equipment.ReceiptImage,
+                equipment.WarrantyExpiryDate,
+                equipment.WarrantyImage
             });
             p.Add("EquipmentChangeId", dbType: DbType.Int32, direction: ParameterDirection.Output);
             using (var con = connect())
@@ -212,7 +212,7 @@ namespace InventoryTrackerFrontend
         {
             using (var con = connect())
             {
-                await con.ExecuteAsync("dbo.spEquipment_UndoChange", new { UserId = UserManager.LoggedInUser.UserId, EquipmentChangeId = equipmentChangeId }, commandType: CommandType.StoredProcedure);
+                await con.ExecuteAsync("dbo.spEquipment_UndoChange", new { UserManager.LoggedInUser.UserId, EquipmentChangeId = equipmentChangeId }, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -222,7 +222,7 @@ namespace InventoryTrackerFrontend
             {
                 await con.ExecuteAsync("dbo.spEquipmentChange_SetApproval", new
                 {
-                    UserId = UserManager.LoggedInUser.UserId,
+                    UserManager.LoggedInUser.UserId,
                     EquipmentChangeId = equipmentChangeId,
                     Approved = 1
                 }, commandType: CommandType.StoredProcedure);

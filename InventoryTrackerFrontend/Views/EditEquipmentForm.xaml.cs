@@ -1,4 +1,5 @@
-﻿using InventoryTrackerFrontend.Models;
+﻿using InventoryTrackerFrontend.Common;
+using InventoryTrackerFrontend.Models;
 using InventoryTrackerFrontend.ViewModels;
 using InventoryTrackerFrontend.Views;
 using System;

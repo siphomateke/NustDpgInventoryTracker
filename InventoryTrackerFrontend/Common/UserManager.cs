@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryTrackerFrontend
+namespace InventoryTrackerFrontend.Common
 {
     public static class UserManager
     {
