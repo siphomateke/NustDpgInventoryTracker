@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:InventoryTrackerFrontend"
+             xmlns:ninject="clr-namespace:InventoryTrackerFrontend.Ninject"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+        <ninject:ServiceLocator x:Key="ServiceLocator"/>
     </Application.Resources>
 </Application>

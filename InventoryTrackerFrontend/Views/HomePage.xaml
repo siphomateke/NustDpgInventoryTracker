@@ -3,12 +3,112 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:InventoryTrackerFrontend.Views"
+      xmlns:local="clr-namespace:InventoryTrackerFrontend" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="HomePage">
-
+      DataContext="{Binding Source={StaticResource ServiceLocator}, Path=HomePageViewModel}"
+      Title="Inventory Tracker - View equipment">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <Frame Source="./ViewEquipmentPage.xaml"/>
+        <StackPanel Orientation="Vertical" Margin="20">
+            <TabControl>
+                <TabItem Header="All equipment">
+                    <StackPanel Orientation="Vertical">
+                        <DataGrid ItemsSource="{Binding Equipment}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>
+                                <DataGridTextColumn Header="Location" Binding="{Binding Path=LocationInHome}"/>
+                                <DataGridTextColumn Header="Condition" Binding="{Binding Path=Condition}"/>
+                                <DataGridTextColumn Header="Age" Binding="{Binding Path=Age}"/>
+                                <DataGridCheckBoxColumn Header="Lost?" Binding="{Binding Path=Lost}"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}"/>
+                                <DataGridTextColumn Header="Date bought" Binding="{Binding Path=DateOfPurchase}"/>
+                                <DataGridTextColumn Header="Warranty expiry" Binding="{Binding Path=WarrantyExpiryDate}"/>
+                                <DataGridTextColumn Header="Price" Binding="{Binding Path=PriceWithCurrency}"/>
+                                <DataGridTextColumn Header="Shop" Binding="{Binding Path=ShopDetails}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <Button x:Name="AddButton" Margin="5" Padding="15,5" Click="AddButton_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Plus" Margin="0,0,8,0" Width="12" />
+                                    <TextBlock Text="New equipment"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="ViewDetailsButton" Content="View details" Margin="5" Padding="15,0" Click="ViewDetailsButton_Click" IsEnabled="{Binding AnyEquipmentSelected}"></Button>
+                            <Button x:Name="EditButton" Content="Edit" Margin="5" Padding="15,0" Click="EditButton_Click" IsEnabled="{Binding AnyEquipmentSelected}"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Equipment to buy">
+                    <StackPanel Orientation="Vertical">
+                        <DataGrid ItemsSource="{Binding EquipmentToBuy}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Equipment changes">
+                    <StackPanel Orientation="Vertical">
+                        <DataGrid ItemsSource="{Binding EquipmentChanges}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" SelectionChanged="EquipmentChangeDataGrid_SelectionChanged" AutoGenerateColumns="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Author" Binding="{Binding Path=ChangedByUserUsername}"/>
+                                <DataGridTextColumn Header="Date" Binding="{Binding Path=ChangeDate}"/>
+                                <DataGridCheckBoxColumn Header="Approved" Binding="{Binding Path=ChangeApproved}"/>
+                                <DataGridTextColumn Header="Approved by" Binding="{Binding Path=ChangeApprovedByUsername}"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>
+                                <DataGridTextColumn Header="Location" Binding="{Binding Path=LocationInHome}"/>
+                                <DataGridTextColumn Header="Condition" Binding="{Binding Path=Condition}"/>
+                                <DataGridTextColumn Header="Age" Binding="{Binding Path=Age}"/>
+                                <DataGridCheckBoxColumn Header="Lost?" Binding="{Binding Path=Lost}"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}"/>
+                                <DataGridTextColumn Header="Date bought" Binding="{Binding Path=DateOfPurchase}"/>
+                                <DataGridTextColumn Header="Warranty expiry" Binding="{Binding Path=WarrantyExpiryDate}"/>
+                                <DataGridTextColumn Header="Price" Binding="{Binding Path=PriceWithCurrency}"/>
+                                <DataGridTextColumn Header="Shop" Binding="{Binding Path=ShopDetails}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <DockPanel>
+                            <Button x:Name="ApproveChangeButton" Margin="5" Padding="15,5" IsEnabled="{Binding AnyEquipmentChangeSelected}" Command="{Binding ApproveChangeCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Check" Margin="0,0,8,0" Width="12" />
+                                    <TextBlock Text="Approve change"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="DiscardChangeButton" Margin="5" Padding="15,5" IsEnabled="{Binding AnyEquipmentChangeSelected}" Command="{Binding DiscardChangeCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Trash" Margin="0,0,8,0" Width="12" />
+                                    <TextBlock Text="Discard change"/>
+                                </StackPanel>
+                            </Button>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label VerticalAlignment="Center" Content="Only show own changes"/>
+                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding ShowOwnChangesOnly}"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+            <Button x:Name="RefreshButton" Margin="5" Padding="15,5" Command="{Binding RefreshEquipmentCommand}" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Refresh" Margin="0,0,8,0" Width="12" />
+                    <TextBlock Text="Refresh"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <xctk:BusyIndicator IsBusy="{Binding IsLoading}" BusyContent="Refreshing equipment..." />
     </Grid>
 </Page>
