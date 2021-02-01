@@ -166,19 +166,22 @@ namespace InventoryTrackerFrontend.Common
                 equipment.DateOfPurchase,
                 equipment.ReceiptImage,
                 equipment.WarrantyExpiryDate,
-                equipment.WarrantyImage
-                //ShopId = (int?)null,
-                //EquipmentPrice = (int?)null,
-                //DatePriceChecked = (DateTime?)null,
-                //IsOriginalPurchase = (bool?)null
+                equipment.WarrantyImage,
+                ShopId = (int?)null,
+                EquipmentPrice = (int?)null,
+                DatePriceChecked = (DateTime?)null,
+                IsOriginalPurchase = (bool?)null
             });
-            p.Add("EquipmentId", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            // p.Add("EquipmentId", dbType: DbType.Int32, direction: ParameterDirection.Output);
             using (var con = connect())
             {
-                string sql = "dbo.spEquipment_Add";
-                await con.QueryAsync(sql, p, commandType: CommandType.StoredProcedure);
+                // string sql = "dbo.spEquipment_Add @Name, @Description, @Quantity, @LocationInHome, @Lost, @ConditionId, @Age, @DateOfPurchase, @ReceiptImage, @WarrantyExpiryDate, @WarrantyImage, @ShopId, @EquipmentPrice, @DatePriceChecked, @IsOriginalPurchase";
+                // await con.QueryAsync(sql, p);
+                string sql = "dbo.spEquipment_Add @Name";
+                await con.QueryAsync(sql, new { Name = "Hoe" });
             }
-            return p.Get<int>("EquipmentId");
+            // return p.Get<int>("EquipmentId");
+            return 0;
         }
 
         public async Task<int> RequestEquipmentChange(Equipment equipment)
@@ -253,6 +256,20 @@ namespace InventoryTrackerFrontend.Common
             {
                 await con.ExecuteAsync("dbo.spEquipmentCategory_Add", new { CategoryId = categoryId, EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure);
             }
+        }
+
+        public async Task ResetEquipmentCategories(int equipmentId)
+        {
+            using (var con = connect())
+            {
+                await con.ExecuteAsync("dbo.spEquipmentCategory_Reset", new { EquipmentId = equipmentId }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task SetEquipmentCategories(int equipmentId, List<EquipmentCategory> categories)
+        {
+            await ResetEquipmentCategories(equipmentId);
+            await Task.WhenAll(categories.Select((c) => AddCategoryToEquipment(c.CategoryId, equipmentId)));
         }
     }
 }

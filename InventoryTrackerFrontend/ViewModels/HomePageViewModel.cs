@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace InventoryTrackerFrontend.ViewModels
@@ -15,8 +16,8 @@ namespace InventoryTrackerFrontend.ViewModels
     {
         public CommandHandler LoadedCommand { get; set; }
         public CommandHandler RefreshEquipmentCommand { get; set; }
-        public CommandHandler<List<Equipment>> EquipmentSelectionChangedCommand { get; set; }
-        public CommandHandler<List<EquipmentChange>> EquipmentChangeSelectionChangedCommand { get; set; }
+        public CommandHandler<SelectionChangedEventArgs> EquipmentSelectionChangedCommand { get; set; }
+        public CommandHandler<SelectionChangedEventArgs> EquipmentChangeSelectionChangedCommand { get; set; }
         public CommandHandler ApproveChangeCommand { get; set; }
         public CommandHandler DiscardChangeCommand { get; set; }
         public IMessageBoxService MessageBoxService { get; set; }
@@ -24,8 +25,8 @@ namespace InventoryTrackerFrontend.ViewModels
         {
             LoadedCommand = new CommandHandler(() => OnLoaded());
             RefreshEquipmentCommand = new CommandHandler(() => RefreshEquipment());
-            EquipmentSelectionChangedCommand = new CommandHandler<List<Equipment>>((o) => OnEquipmentSelectionChanged(o));
-            EquipmentChangeSelectionChangedCommand = new CommandHandler<List<EquipmentChange>>((o) => OnEquipmentChangeSelectionChanged(o));
+            EquipmentSelectionChangedCommand = new CommandHandler<SelectionChangedEventArgs>((o) => OnEquipmentSelectionChanged(o));
+            EquipmentChangeSelectionChangedCommand = new CommandHandler<SelectionChangedEventArgs>((o) => OnEquipmentChangeSelectionChanged(o));
             ApproveChangeCommand = new CommandHandler(() => ApproveEquipmentChange());
             DiscardChangeCommand = new CommandHandler(() => DiscardEquipmentChange());
 
@@ -64,11 +65,11 @@ namespace InventoryTrackerFrontend.ViewModels
             }
         }
 
-        public void OnEquipmentSelectionChanged(List<Equipment> AddedItems)
+        public void OnEquipmentSelectionChanged(SelectionChangedEventArgs e)
         {
-            if (AddedItems.Count > 0)
+            if (e.AddedItems.Count > 0)
             {
-                Equipment selectedEquipment = AddedItems[0];
+                Equipment selectedEquipment = (Equipment)e.AddedItems[0];
                 SelectedEquipmentId = selectedEquipment.EquipmentId;
                 AnyEquipmentSelected = true;
             }
@@ -78,11 +79,11 @@ namespace InventoryTrackerFrontend.ViewModels
             }
         }
 
-        public void OnEquipmentChangeSelectionChanged(List<EquipmentChange> AddedItems)
+        public void OnEquipmentChangeSelectionChanged(SelectionChangedEventArgs e)
         {
-            if (AddedItems.Count > 0)
+            if (e.AddedItems.Count > 0)
             {
-                EquipmentChange selectedEquipmentChange = AddedItems[0];
+                EquipmentChange selectedEquipmentChange = (EquipmentChange)e.AddedItems[0];
                 SelectedEquipmentChangeId = selectedEquipmentChange.EquipmentChangeId;
                 AnyEquipmentChangeSelected = true;
             }

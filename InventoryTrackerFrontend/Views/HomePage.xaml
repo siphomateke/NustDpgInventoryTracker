@@ -21,7 +21,7 @@
             <TabControl>
                 <TabItem Header="All equipment">
                     <StackPanel Orientation="Vertical">
-                        <DataGrid ItemsSource="{Binding Equipment}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+                        <DataGrid ItemsSource="{Binding Equipment}" MaxWidth="1200" MaxHeight="300" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" SelectionChanged="equipmentDataGrid_SelectionChanged">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                                 <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>

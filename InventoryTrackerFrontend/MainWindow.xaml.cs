@@ -1,4 +1,5 @@
-﻿using InventoryTrackerFrontend.Views;
+﻿using InventoryTrackerFrontend.Common;
+using InventoryTrackerFrontend.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace InventoryTrackerFrontend
             //this.busyIndicator.IsBusy = true;
             //try
             //{
-            //    // await UserManager.Login("lisentu", "critical");
+            //    await UserManager.Login("sipho", "password");
             //    _mainFrame.Navigate(new HomePage());
             //}
             //finally

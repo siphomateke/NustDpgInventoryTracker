@@ -24,7 +24,6 @@ namespace InventoryTrackerFrontend.Views
     public partial class HomePage : Page
     {
         HomePageViewModel vm;
-
         public HomePage()
         {
             InitializeComponent();
@@ -48,12 +47,12 @@ namespace InventoryTrackerFrontend.Views
 
         private void equipmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            vm.EquipmentSelectionChangedCommand.Execute(e.AddedItems);
+            vm.EquipmentSelectionChangedCommand.Execute(e);
         }
 
         private void EquipmentChangeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            vm.EquipmentChangeSelectionChangedCommand.Execute(e.AddedItems);
+            vm.EquipmentChangeSelectionChangedCommand.Execute(e);
         }
     }
 }

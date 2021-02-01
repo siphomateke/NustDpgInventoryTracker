@@ -21,18 +21,16 @@
                 <Label Width="150" Content="Name"/>
                 <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Equipment.Name}" />
             </StackPanel>
-            <!--<StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Categories"/>
-                <xctk:CheckCoboBox
+                <xctk:CheckComboBox
                     x:Name="CategoryComboBox"
                     VerticalAlignment="Center" 
-                    DisplayMemberPath="Name"
                     ItemsSource="{Binding AllCategories}"
-                    ValueMemberPath="CategoryId"
-                    SelectedMemberPath="Name"
-                    SelectedItemsOverride="{Binding Equipment.Categories}"/>
+                    DisplayMemberPath="Name"
+                    SelectedItemsOverride="{Binding SelectedCategories}"/>
                 <Button x:Name="AddCategoryButton" Margin="5,0,0,0" VerticalAlignment="Center" Content="New category" Click="AddCategoryButton_Click"/>
-            </StackPanel>-->
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150" Content="Description"/>
                 <TextBox Width="200" Height="65" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding Equipment.Description}"/>

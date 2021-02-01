@@ -123,7 +123,7 @@
     <Build Include="dbo\Views\v_EquipmentToBuy.sql" />
     <Build Include="dbo\Views\v_Shop.sql" />
     <Build Include="dbo\Views\v_UserRoles.sql" />
-    <None Include="dbo\Script.PostDeployment.InitialData.sql" />
+    <PostDeploy Include="dbo\Script.PostDeployment.InitialData.sql" />
     <Build Include="dbo\Views\v_EquipmentDetails.sql" />
     <Build Include="dbo\Procedures\spEquipment_GetPrices.sql" />
     <Build Include="dbo\Views\v_EquipmentPricing.sql" />
@@ -131,5 +131,6 @@
     <Build Include="dbo\Procedures\spEquipment_GetCategories.sql" />
     <Build Include="dbo\Procedures\spEquipmentChange_List.sql" />
     <Build Include="dbo\Views\v_EquipmentChangeDetails.sql" />
+    <Build Include="dbo\Procedures\spEquipmentCategory_Reset.sql" />
   </ItemGroup>
 </Project>

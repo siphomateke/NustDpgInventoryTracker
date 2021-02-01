@@ -57,7 +57,7 @@ namespace InventoryTrackerFrontend.Views
         {
             if (this.DataContext != null)
             {
-                //((LoginWindowViewModel)this.DataContext).Password = ((PasswordBox)sender).Password;
+                ((LoginWindowViewModel)this.DataContext).Password = ((PasswordBox)sender).Password;
             }
         }
 

@@ -4,6 +4,7 @@ using InventoryTrackerFrontend.ViewModels;
 using InventoryTrackerFrontend.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,13 +36,11 @@ namespace InventoryTrackerFrontend.Views
         {
             InitializeComponent();
             ViewModel.AllCategories = new List<EquipmentCategory>();
-            //ViewModel = new EditEquipmentFormViewModel();
-            //this.DataContext = ViewModel;
         }
         private async void PostInit()
         {
+            RefreshCategories(); // This must run before getting equipment details
             await RefreshEquipmentDetails();
-            RefreshCategories();
         }
         public EditEquipmentForm(int equipmentId)
         {
@@ -91,7 +90,9 @@ namespace InventoryTrackerFrontend.Views
             {
                 DataAccess db = new DataAccess();
                 ViewModel.Equipment = await db.GetEquipmentDetails((int)ViewModel.EquipmentId);
-                // ViewModel.CategoryIds = ViewModel.Equipment.Categories.Select(c => c.CategoryId).ToList();
+                // CheckComboBox requires the selected items to be the actual objects from the AllCategories list.
+                var selectedCategories = ViewModel.Equipment.Categories.Select(c => ViewModel.AllCategories.Find(c2 => c2.CategoryId == c.CategoryId));
+                ViewModel.SelectedCategories = new ObservableCollection<EquipmentCategory>(selectedCategories);
             }
         }
 
@@ -102,7 +103,6 @@ namespace InventoryTrackerFrontend.Views
             {
                 DataAccess db = new DataAccess();
                 ViewModel.AllCategories = await db.GetCategories();
-                // ViewModel.CategoryIds = new List<int>();
             }
             catch (Exception ex)
             {
@@ -146,12 +146,7 @@ namespace InventoryTrackerFrontend.Views
                     await db.RequestEquipmentChange(ViewModel.Equipment);
 
                 // Update categories
-                // await Task.WhenAll(ViewModel.Equipment.Categories.Select((c) => db.AddCategoryToEquipment(c.CategoryId, (int)ViewModel.EquipmentId)));
-                await db.AddCategoryToEquipment(0, (int)ViewModel.EquipmentId);
-                await db.AddCategoryToEquipment(1, (int)ViewModel.EquipmentId);
-                await db.AddCategoryToEquipment(2, (int)ViewModel.EquipmentId);
-                await db.AddCategoryToEquipment(3, (int)ViewModel.EquipmentId);
-                await db.AddCategoryToEquipment(4, (int)ViewModel.EquipmentId);
+                await db.SetEquipmentCategories((int)ViewModel.EquipmentId, ViewModel.SelectedCategories.ToList());
 
                 // FIXME: Add shops
 
