@@ -121,7 +121,7 @@ namespace InventoryTrackerFrontend.Common
         {
             return _canExecute == null ? true : _canExecute();
         }
-        public void Execute(object parameter)
+        public void Execute(object parameter = null)
         {
             _execute();
         }
