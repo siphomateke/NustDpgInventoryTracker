@@ -108,6 +108,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\CommandHandler.cs" />
+    <Compile Include="Extensions\DialogCloser.cs" />
+    <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Models\BasicEquipment.cs" />
     <Compile Include="Models\EquipmentCategory.cs" />
     <Compile Include="Models\EquipmentChange.cs" />
@@ -117,12 +119,16 @@
     <Compile Include="Ninject\ServiceLocator.cs" />
     <Compile Include="Ninject\ServiceModule.cs" />
     <Compile Include="Services\IMessageBoxService.cs" />
+    <Compile Include="Services\INavigationPage.cs" />
+    <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="Common\UserManager.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\EditEquipmentFormViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="ViewModels\NewCategoryDialogViewModel.cs" />
+    <Compile Include="ViewModels\WelcomePageViewModel.cs" />
     <Compile Include="Views\EditEquipmentForm.xaml.cs">
       <DependentUpon>EditEquipmentForm.xaml</DependentUpon>
     </Compile>
@@ -246,6 +252,7 @@
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

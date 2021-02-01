@@ -1,7 +1,9 @@
 ﻿using InventoryTrackerFrontend.Common;
 using InventoryTrackerFrontend.Models;
+using InventoryTrackerFrontend.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,54 +26,42 @@ namespace InventoryTrackerFrontend.Views
         public LoginWindow()
         {
             InitializeComponent();
+
+            LoginWindowViewModel vm = (LoginWindowViewModel)this.DataContext;
+            vm.PropertyChanged += (sender, args) =>
+            {
+                switch (args.PropertyName)
+                {
+                    case "UsernameIsFocused":
+                        if (vm.UsernameIsFocused)
+                            usernameTextBox.Focus();
+                        break;
+                    case "PasswordISFocused":
+                        if (vm.PasswordIsFocused)
+                            passwordTextBox.Focus();
+                        break;
+                    case "IsHidden":
+                        if (vm.IsHidden)
+                            this.Hide();
+                        break;
+                    case "DialogResult":
+                        this.DialogResult = vm.DialogResult;
+                        break;
+                    default:
+                        break;
+                }
+            };
         }
 
-        private async void loginButton_Click(object sender, RoutedEventArgs e)
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (usernameTextBox.Text == "")
+            if (this.DataContext != null)
             {
-                MessageBox.Show("Please enter a username", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                usernameTextBox.Focus();
-                return;
-            }
-            if (passwordBox.Password == "")
-            {
-                MessageBox.Show("Please enter a password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                passwordBox.Focus();
-                return;
-            }
-
-            try
-            {
-                busyIndicator.IsBusy = true;
-                User loggedInUser = await UserManager.Login(usernameTextBox.Text, passwordBox.Password);
-                busyIndicator.IsBusy = false;
-
-                bool loginSuccess = loggedInUser != null;
-                if (loginSuccess)
-                {
-                    MessageBox.Show($"Successfully logged in as {loggedInUser.FirstName} {loggedInUser.LastName} ({loggedInUser.Username})", "Login successful", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.DialogResult = true;
-                    this.Hide();
-                }
-                else
-                {
-                    this.DialogResult = false;
-                    MessageBox.Show("Invalid username or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    passwordBox.Clear();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                busyIndicator.IsBusy = false;
+                //((LoginWindowViewModel)this.DataContext).Password = ((PasswordBox)sender).Password;
             }
         }
 
-        private void exitButton_Click(object sender, RoutedEventArgs e)
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }

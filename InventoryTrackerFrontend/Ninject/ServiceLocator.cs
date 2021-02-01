@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace InventoryTrackerFrontend.Ninject
 {
@@ -20,6 +21,16 @@ namespace InventoryTrackerFrontend.Ninject
         public HomePageViewModel HomePageViewModel
         {
             get { return kernel.Get<HomePageViewModel>(); }
+        }
+
+        public WelcomePageViewModel WelcomePageViewModel
+        {
+            get { return kernel.Get<WelcomePageViewModel>(); }
+        }
+
+        public LoginWindowViewModel LoginWindowViewModel
+        {
+            get { return kernel.Get<LoginWindowViewModel>(); }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using InventoryTrackerFrontend.Common;
+using InventoryTrackerFrontend.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,32 +22,29 @@ namespace InventoryTrackerFrontend.Views
     /// </summary>
     public partial class WelcomePage : Page
     {
+        WelcomePageViewModel vm;
         public WelcomePage()
         {
             InitializeComponent();
-            RefreshButtons();
+            vm = this.DataContext as WelcomePageViewModel;
+
+            vm.LoginEvent += Login;
+            vm.RegisterEvent += Register;
         }
 
-        private void RefreshButtons()
-        {
-            LoginButton.IsEnabled = !UserManager.LoggedIn;
-            RegisterButton.IsEnabled = !UserManager.LoggedIn;
-            LogoutButton.IsEnabled = UserManager.LoggedIn;
-        }
-
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private void Login()
         {
             LoginWindow win = new LoginWindow();
-            win.ShowDialog();
+            var result = win.ShowDialog();
 
             if (UserManager.LoggedIn)
             {
                 NavigationService.Navigate(new HomePage());
             }
-            RefreshButtons();
+            vm.RefreshCommand.Execute();
         }
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        private void Register()
         {
             if (!UserManager.LoggedIn)
             {
@@ -59,13 +57,7 @@ namespace InventoryTrackerFrontend.Views
                 RegisterWindow win = new RegisterWindow();
                 win.ShowDialog();
             }
-            RefreshButtons();
-        }
-
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserManager.Logout();
-            RefreshButtons();
+            vm.RefreshCommand.Execute();
         }
     }
 }

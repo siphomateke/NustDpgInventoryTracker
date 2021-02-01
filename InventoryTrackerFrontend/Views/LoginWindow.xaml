@@ -6,22 +6,23 @@
         xmlns:local="clr-namespace:InventoryTrackerFrontend" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="User login" Height="186.333" Width="300"
-        FocusManager.FocusedElement="{Binding ElementName=usernameTextBox}">
+        FocusManager.FocusedElement="{Binding ElementName=usernameTextBox}"
+        DataContext="{Binding Source={StaticResource ServiceLocator}, Path=LoginWindowViewModel}">
     <Grid>
         <StackPanel>
             <StackPanel HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Width="264">
-                <Label x:Name="usernameLabel" Content="Username" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox x:Name="usernameTextBox" TextWrapping="Wrap"/>
-                <Label x:Name="passwordLabel" Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <PasswordBox x:Name="passwordBox"/>
+                <Label Content="Username" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox x:Name="usernameTextBox" Text="{Binding Username}" TextWrapping="Wrap"/>
+                <Label  Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="passwordTextBox" PasswordChanged="PasswordBox_PasswordChanged"/>
             </StackPanel>
 
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
-                <Button x:Name="exitButton" Content="Exit" Width="75" IsCancel="True" Click="exitButton_Click" Margin="5"/>
-                <Button x:Name="loginButton" Content="Login" Width="76" IsDefault="True" Click="loginButton_Click" Margin="5"/>
+                <Button Click="ExitButton_Click" Content="Exit" Width="75" IsCancel="True" Margin="5"/>
+                <Button Command="{Binding LoginCommand}" Content="Login" Width="76" IsDefault="True" Margin="5"/>
             </StackPanel>
         </StackPanel>
 
-        <xctk:BusyIndicator x:Name="busyIndicator" IsBusy="False"  BusyContent="Logging in..." />
+        <xctk:BusyIndicator IsBusy="{Binding IsLoading}"  BusyContent="Logging in..." />
     </Grid>
 </Window>
